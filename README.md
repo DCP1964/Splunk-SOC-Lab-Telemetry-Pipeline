@@ -148,7 +148,7 @@ Create suspicious PowerShell execution.
 # Attack 4 (On your Ubuntu Server) :
 **Open the terminal on your Ubuntu VM**
 - **Run this command to try and log in as a fake user named "attacker" 10 times:**
-
+![Attack Chart](images/attacked_10_times.png)
 
 `for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done`
 

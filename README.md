@@ -183,6 +183,7 @@ Successfully visualized the brute-force attack using Splunk's visualization engi
 ## The "SOC Mindset": Troubleshooting Log Ingestion
 During the setup, I encountered a "Data Silent" issue where the connection was established but logs were not indexing. I resolved this through:
 - **Network Analysis:** Verified the `ESTABLISHED` state on the Ubuntu server using `netstat`.
+`sudo netstat -anp | grep 9997`
 - **Log Forensics:** Analyzed `splunkd.log` on the Windows endpoint to find connection errors.
 - **Root Cause:** Identified a hidden `.txt` extension on `inputs.conf` and a service permission mismatch.
 - **Solution:** Renamed the config, elevated the service to `Local System`, and cleared the `fishbucket` to force re-ingestion.

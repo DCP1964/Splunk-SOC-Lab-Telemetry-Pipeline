@@ -76,7 +76,7 @@ Bash
 Bash
 `http://localhost:8000`
 
-## STEP 5 — INSTALL SPLUNK FORWARDER (Windows)
+## INSTALL SPLUNK FORWARDER (Windows)
 
 **On Windows VM:**
 **Download:**
@@ -86,7 +86,7 @@ Bash
 Bash
 `Forward to: <IP_of_Splunk_Server>:9997`
 
-## STEP 6 — INSTALL SYSMON 
+## INSTALL SYSMON 
 **Sysmon gives deep visibility like an EDR.**
     - **On Windows VM:**
     - **Download Sysmon from Microsoft**
@@ -103,7 +103,7 @@ This logs:
 - **Network connections**    
 - **PowerShell attacks**
 
-## STEP 7 — CONNECT WINDOWS LOGS TO SPLUNK
+## CONNECT WINDOWS LOGS TO SPLUNK
 
 **Forward:**-
     - **Security Logs**    
@@ -112,7 +112,7 @@ This logs:
 
 **To Splunk**
 
-## STEP 8 — INSTALL LOGGING ON UBUNTU
+## INSTALL LOGGING ON UBUNTU
 **On Ubuntu machine:**
 **Install auditd:**
 Bash

@@ -151,8 +151,9 @@ Create suspicious PowerShell execution.
 
 
 `for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done`
--- **When it asks for a password, just hit Enter or type random letters and press Enter.**
--- **After 10 tries, your Ubuntu system will record 10 "Failed password" events in the auth logs.**
+
+**When it asks for a password, just hit Enter or type random letters and press Enter.**
+**After 10 tries, your Ubuntu system will record 10 "Failed password" events in the auth logs.**
 
 ## The Verification (Is Splunk Watching?)
 **Open Splunk Web UI (http://10.0.0.109:8000) and run this search to see if the "attacker" was caught:**
@@ -174,8 +175,6 @@ Create suspicious PowerShell execution.
     - **Title: Brute Force Attempt Detected**
     - **Trigger Conditions: Set to "Greater than 5" within a "1 minute" window.**
     - **Action: For now, set it to "Add to Triggered Alerts".**
-
-
 
 ## The "SOC Mindset": Troubleshooting Log Ingestion
 During the setup, I encountered a "Data Silent" issue where the connection was established but logs were not indexing. I resolved this through:

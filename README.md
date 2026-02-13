@@ -239,6 +239,11 @@ Save and Exit from Nano Editor: Press Ctrl+O, then Enter, then Ctrl+X.
 3. Start the Defender
 `sudo systemctl restart fail2ban
 
+### 🛡️ Automated Defense: Fail2Ban Integration
+To mitigate the detected brute-force attacks, I implemented **Fail2Ban** to monitor `auth.log` and automatically block malicious IPs.
+- **Policy:** 3 failed attempts results in a 1-hour ban.
+- **Result:** Successfully blocked simulated attack from `127.0.0.1` after the 3rd retry.
+![Fail2Ban Proof](img/fail2ban_status.png)
 
 # Achievements
 ## The Environment: A functional Linux server sending security logs to Splunk.

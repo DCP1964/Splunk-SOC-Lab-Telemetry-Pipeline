@@ -176,6 +176,10 @@ Create suspicious PowerShell execution.
     - **Trigger Conditions: Set to "Greater than 5" within a "1 minute" window.**
     - **Action: For now, set it to "Add to Triggered Alerts".**
 
+#### 📊 Visualization
+Successfully visualized the brute-force attack using Splunk's visualization engine to identify the most targeted accounts.
+![Attack Chart](images/brute_force_chart.png)
+
 ## The "SOC Mindset": Troubleshooting Log Ingestion
 During the setup, I encountered a "Data Silent" issue where the connection was established but logs were not indexing. I resolved this through:
 - **Network Analysis:** Verified the `ESTABLISHED` state on the Ubuntu server using `netstat`.

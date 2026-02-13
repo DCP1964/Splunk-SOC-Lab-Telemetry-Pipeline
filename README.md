@@ -168,7 +168,13 @@ Create suspicious PowerShell execution.
 # How to Create your first SOC Alert:
 **Run a search that finds the brute force:**
 
+`index="main" sourcetype="linux_secure" "failed password" | stats count by user | sort -count`
+
 `index="internal" "failed password" | stats count by user | where count > 5`
+
+`index="main" sourcetype="linux_secure" "failed password" | stats count by user`
+
+`index="main" sourcetype="linux_secure" "failed password" | timechart count by user`
 
 **Click Save As in the top right.**
     - **Select Alert.**
@@ -195,9 +201,7 @@ Successfully captured:
 - **WinEventLog:System** (Service changes)
 - **Sysmon:Operational** (Process creation, Network connections)
 
-## Achievements
-# The Environment: A functional Linux server sending security logs to Splunk.
-
-# The Attack: A simulated SSH brute force using a custom loop script.
-
-# The Detection: A precise Splunk search (index="main" sourcetype="linux_secure") that filters through thousands of events to find the threat.
+# Achievements
+## The Environment: A functional Linux server sending security logs to Splunk.
+## The Attack: A simulated SSH brute force using a custom loop script.
+## The Detection: A precise Splunk search (index="main" sourcetype="linux_secure") that filters through thousands of events to find the threat.

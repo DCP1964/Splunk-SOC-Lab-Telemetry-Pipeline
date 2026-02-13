@@ -36,7 +36,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 - **Log correlation**
 - **Incident report writing**
 
-## Ceating Machines
+## Creating Machines
 - **VM 1 — Windows 10**
     - **RAM:** 4GB
     - **Disk:** 60GB

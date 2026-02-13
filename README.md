@@ -165,11 +165,11 @@ Bash
 **In a real SOC, we can't stare at the screen 24/7. We want Splunk to tell us when something is wrong.**
 
 # How to Create your first SOC Alert:
-# Run a search that finds the brute force:
+**Run a search that finds the brute force:**
 Bash
 `index="internal" "failed password" | stats count by user | where count > 5`
 
-# Click Save As in the top right.
+**Click Save As in the top right.**
     - **Select Alert.**
     - **Title: Brute Force Attempt Detected**
     - **Trigger Conditions: Set to "Greater than 5" within a "1 minute" window.**

@@ -130,7 +130,7 @@ Bash
 # Attack 1:
 
 **Port scan:**
-Bash
+
 `nmap -sS <Windows_IP>
 
 # Attack 2:

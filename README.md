@@ -201,6 +201,45 @@ Successfully captured:
 - **WinEventLog:System** (Service changes)
 - **Sysmon:Operational** (Process creation, Network connections)
 
+
+# Hardening the System
+- Since we have successfully captured the brute-force attack in Splunk, moving to Fail2Ban is a perfect way to transition from monitoring to automated defense.
+- Fail2Ban works by constantly scanning your logs (the same auth.log we just configured) for the "Failed password" patterns you just hunted. When it sees too many failures from one IP, it automatically updates your system firewall to block that attacker.
+
+**Implementing Automated Defense with Fail2Ban**
+
+1. Install Fail2Ban on Ubuntu
+Open your Ubuntu Server terminal and run:
+
+`sudo apt update`
+
+`sudo apt install fail2ban -y`
+
+2. Configure the "Jail" (The Defense Rules)
+We need to create a local configuration file to tell Fail2Ban how to protect your SSH port.
+
+Create the config file:
+sudo nano /etc/fail2ban/jail.local
+
+Paste this configuration into the file:
+
+`[sshd]`
+`enabled = true`
+`port = ssh`
+`filter = sshd`
+`logpath = /var/log/auth.log`
+`maxretry = 3`
+`bantime = 1h`
+
+- maxretry = 3: This means the attacker only gets 3 chances before getting banned (your previous attack used 10).
+- bantime = 1h: The attacker's IP will be blocked for 1 hour.
+
+Save and Exit from Nano Editor: Press Ctrl+O, then Enter, then Ctrl+X.
+
+3. Start the Defender
+`sudo systemctl restart fail2ban
+
+
 # Achievements
 ## The Environment: A functional Linux server sending security logs to Splunk.
 ## The Attack: A simulated SSH brute force using a custom loop script.

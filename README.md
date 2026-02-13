@@ -6,6 +6,14 @@ An end-to-end SOC lab featuring a Windows 10 endpoint, Sysmon telemetry, and an 
 ## Overview
 Successfully built a functional Security Operations Center (SOC) lab to monitor Windows endpoint activity using Splunk SIEM. This project demonstrates my ability to configure telemetry agents, manage log ingestion, and troubleshoot complex data pipeline issues.
 
+## Project Goals 
+- **Build a SOC lab from scratch** 
+- **Collect logs** 
+- **Detect attacks** 
+- **Investigate incidents**
+- **Write detection reports**
+- **Use Splunk like a real analyst**
+
 ## Tools & Environment
 - **SIEM:** Splunk Enterprise (Ubuntu Server 24.04)
 - **Endpoint:** Windows 10 Pro
@@ -14,8 +22,38 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 
 ## Architecture
 1. **Windows 10 Victim:** Generates Event Logs and Sysmon telemetry.
-2. **Universal Forwarder:** Sends data over port 9997.
+2. **Splunk Universal Forwarder:** Sends data over port 9997.
 3. **Ubuntu Splunk Server:** Ingests, indexes, and visualizes the data.
+4. **Sysmon** ( for deep logging)
+5. **Kali Linux**
+6. **VirtualBox**
+
+## Demonstrating
+- **Brute force detection**
+- **Malware simulation**
+- **Port scanning detection**
+- **Suspicious PowerShell detection**
+- **Log correlation**
+- **Incident report writing**
+
+## Ceating Machines
+- **VM 1 — Windows 10**
+    - **RAM:** 4GB
+    - **Disk:** 60GB
+- **VM 2 — Ubuntu Server**
+    - **RAM:** 2GB
+    - **Disk:** 30GB
+- **VM 3 — Splunk Server**
+    - **OS Ubuntu Server**
+
+## Network Setup 
+- **Adapter 1 = NAT**
+- **Adapter 2 = Host-Only**
+    - This allows
+      - **Inernet Access**
+      - **Internal attack lab**
+  
+
 
 ## The "SOC Mindset": Troubleshooting Log Ingestion
 During the setup, I encountered a "Data Silent" issue where the connection was established but logs were not indexing. I resolved this through:

@@ -246,6 +246,6 @@ To mitigate the detected brute-force attacks, I implemented **Fail2Ban** to moni
 ![Fail2Ban Proof](img/fail2ban_status.png)
 
 # Achievements
-   **The Environment: A functional Linux server sending security logs to Splunk.**
-    **The Attack: A simulated SSH brute force using a custom loop script.**
-    **The Detection: A precise Splunk search (index="main" sourcetype="linux_secure") that filters through thousands of events to find the threat.**
+- **The Environment: A functional Linux server sending security logs to Splunk.**
+- **The Attack: A simulated SSH brute force using a custom loop script.**
+- **The Detection: A precise Splunk search (index="main" sourcetype="linux_secure") that filters through thousands of events to find the threat.**

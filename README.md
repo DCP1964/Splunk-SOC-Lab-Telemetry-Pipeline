@@ -64,7 +64,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 - Splunk Enterprise (Linux .deb)   
 
 **Install:**
-Bash
+`Bash
 `sudo dpkg -i splunk*.deb sudo /opt/splunk/bin/splunk start`
 
 **Create:**
@@ -73,7 +73,7 @@ Bash
     
 
 **Open in browser:**
-Bash
+`Bash
 `http://localhost:8000`
 
 ## INSTALL SPLUNK FORWARDER (Windows)
@@ -83,7 +83,7 @@ Bash
 - **Splunk Universal Forwarder*
 
 **Install and choose:**
-Bash
+`Bash
 `Forward to: <IP_of_Splunk_Server>:9997`
 
 ## INSTALL SYSMON 
@@ -92,7 +92,7 @@ Bash
     - **Download Sysmon from Microsoft**
     
 **Then install:**
-Bash
+`Bash
 `Sysmon64.exe -i sysmonconfig.xml`
 
 **Use config:**
@@ -115,12 +115,12 @@ This logs:
 ## INSTALL LOGGING ON UBUNTU
 **On Ubuntu machine:**
 **Install auditd:**
-Bash
+`Bash
 `sudo apt install auditd`
 
 **Install Splunk Forwarder**
 **Forward:**
-Bash
+`Bash
 `/var/log/auth.log` 
 `/var/log/syslog`
 
@@ -130,13 +130,13 @@ Bash
 # Attack 1:
 
 **Port scan:**
-
+`Bash
 `nmap -sS <Windows_IP>`
 
 # Attack 2:
 
 **Brute force:**
-Bash
+`Bash
 `hydra -l admin -P rockyou.txt <IP> ssh`
 
 # Attack 3:
@@ -149,14 +149,14 @@ Create suspicious PowerShell execution.
 **Open the terminal on your Ubuntu VM**
 - **Run this command to try and log in as a fake user named "attacker" 10 times:**
 
-Bash
+`Bash
 `for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done`
 -- **When it asks for a password, just hit Enter or type random letters and press Enter.**
 -- **After 10 tries, your Ubuntu system will record 10 "Failed password" events in the auth logs.**
 
 ## The Verification (Is Splunk Watching?)
 **Open Splunk Web UI (http://10.0.0.109:8000) and run this search to see if the "attacker" was caught:**
-Bash
+`Bash
 `index="internal" "failed password" | stats count by user, src_ip`
 
 **Expected Result: You should see the user attacker with a count of 10**
@@ -166,7 +166,7 @@ Bash
 
 # How to Create your first SOC Alert:
 **Run a search that finds the brute force:**
-Bash
+`Bash
 `index="internal" "failed password" | stats count by user | where count > 5`
 
 **Click Save As in the top right.**

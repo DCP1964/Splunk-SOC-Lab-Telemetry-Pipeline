@@ -52,7 +52,129 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
     - This allows
       - **Inernet Access**
       - **Internal attack lab**
-  
+
+## INSTALL SPLUNK ENTERPRISE (SIEM)
+
+**On Ubuntu Splunk VM:**
+
+**Go to:**
+[https://www.splunk.com](https://www.splunk.com)
+
+**Download:**
+- Splunk Enterprise (Linux .deb)   
+
+**Install:**
+Bash
+`sudo dpkg -i splunk*.deb sudo /opt/splunk/bin/splunk start`
+
+**Create:**
+- Username-- admin    
+- Password: password123
+    
+
+**Open in browser:**
+Bash
+`http://localhost:8000`
+
+## STEP 5 — INSTALL SPLUNK FORWARDER (Windows)
+
+**On Windows VM:**
+**Download:**
+- **Splunk Universal Forwarder*
+
+**Install and choose:**
+Bash
+`Forward to: <IP_of_Splunk_Server>:9997`
+
+## STEP 6 — INSTALL SYSMON 
+**Sysmon gives deep visibility like an EDR.**
+    - **On Windows VM:**
+    - **Download Sysmon from Microsoft**
+    
+**Then install:**
+Bash
+`Sysmon64.exe -i sysmonconfig.xml`
+
+**Use config:**
+- **SwiftOnSecurity sysmon config (Google it)**
+This logs:
+- **Process creation**    
+- **Malware behavior**    
+- **Network connections**    
+- **PowerShell attacks**
+
+## STEP 7 — CONNECT WINDOWS LOGS TO SPLUNK
+
+**Forward:**-
+    - **Security Logs**    
+    - **System Logs**    
+    - **Sysmon Logs**  
+
+**To Splunk**
+
+## STEP 8 — INSTALL LOGGING ON UBUNTU
+**On Ubuntu machine:**
+**Install auditd:**
+Bash
+`sudo apt install auditd`
+
+**Install Splunk Forwarder**
+**Forward:**
+Bash
+`/var/log/auth.log` 
+`/var/log/syslog`
+
+## ATTACK SIMULATION
+**Simulate real attacks:**
+
+# Attack 1:
+
+**Port scan:**
+Bash
+`nmap -sS <Windows_IP>
+
+# Attack 2:
+
+**Brute force:**
+Bash
+`hydra -l admin -P rockyou.txt <IP> ssh
+
+# Attack 3:
+
+Fake malware:
+
+Create suspicious PowerShell execution.
+
+# Attack 4 (On your Ubuntu Server) :
+**Open the terminal on your Ubuntu VM**
+- **Run this command to try and log in as a fake user named "attacker" 10 times:**
+
+Bash
+`for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done`
+-- **When it asks for a password, just hit Enter or type random letters and press Enter.**
+-- **After 10 tries, your Ubuntu system will record 10 "Failed password" events in the auth logs.**
+
+## The Verification (Is Splunk Watching?)
+**Open Splunk Web UI (http://10.0.0.109:8000) and run this search to see if the "attacker" was caught:**
+Bash
+`index="internal" "failed password" | stats count by user, src_ip`
+
+**Expected Result: You should see the user attacker with a count of 10**
+
+## The "Next Level" Goal: Automated Alerting
+**In a real SOC, we can't stare at the screen 24/7. We want Splunk to tell us when something is wrong.**
+
+# How to Create your first SOC Alert:
+# Run a search that finds the brute force:
+Bash
+`index="internal" "failed password" | stats count by user | where count > 5`
+
+# Click Save As in the top right.
+    - **Select Alert.**
+    - **Title: Brute Force Attempt Detected**
+    - **Trigger Conditions: Set to "Greater than 5" within a "1 minute" window.**
+    - **Action: For now, set it to "Add to Triggered Alerts".**
+
 
 
 ## The "SOC Mindset": Troubleshooting Log Ingestion

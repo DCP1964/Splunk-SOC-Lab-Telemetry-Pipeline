@@ -184,7 +184,7 @@ During the setup, I encountered a "Data Silent" issue where the connection was e
 - **Solution:** Renamed the config, elevated the service to `Local System`, and cleared the `fishbucket` to force re-ingestion.
 
 ## Result: 19,000+ Events Successfully Indexed
-![Splunk Data Evidence](img/final_search.png)
+![Splunk Data Evidence](images/final_search.png)
 Successfully captured:
 - **WinEventLog:Security** (Logon/Logoff events)
 - **WinEventLog:System** (Service changes)

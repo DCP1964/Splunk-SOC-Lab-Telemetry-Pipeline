@@ -86,7 +86,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 
 `Forward to: <IP_of_Splunk_Server>:9997`
 
-## INSTALL SYSMON 
+##INSTALL SYSMON 
 **Sysmon gives deep visibility like an EDR.**
     - **On Windows VM:**
     - **Download Sysmon from Microsoft**
@@ -103,7 +103,7 @@ This logs:
 - **Network connections**    
 - **PowerShell attacks**
 
-## CONNECT WINDOWS LOGS TO SPLUNK
+##CONNECT WINDOWS LOGS TO SPLUNK
 
 **Forward:**-
     - **Security Logs**    
@@ -112,7 +112,7 @@ This logs:
 
 **To Splunk**
 
-## INSTALL LOGGING ON UBUNTU
+##INSTALL LOGGING ON UBUNTU
 **On Ubuntu machine:**
 **Install auditd:**
 
@@ -124,28 +124,28 @@ This logs:
 `/var/log/auth.log` 
 `/var/log/syslog`
 
-# ATTACK SIMULATION
+#ATTACK SIMULATION
 **Simulate real attacks:**
 
-## Attack 1:
+##Attack 1:
 
 **Port scan:**
 
 `nmap -sS <Windows_IP>`
 
-## Attack 2:
+##Attack 2:
 
 **Brute force:**
 
 `hydra -l admin -P rockyou.txt <IP> ssh`
 
-## Attack 3:
+##Attack 3:
 
 Fake malware:
 
 Create suspicious PowerShell execution.
 
-## Attack 4 (On your Ubuntu Server) :
+##Attack 4 (On your Ubuntu Server) :
 **Open the terminal on your Ubuntu VM**
 - **Run this command to try and log in as a fake user named "attacker" 10 times:**
 ![Attack Chart](images/attacked_10_times.png)

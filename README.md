@@ -124,28 +124,28 @@ This logs:
 `/var/log/auth.log` 
 `/var/log/syslog`
 
-## ATTACK SIMULATION
+# ATTACK SIMULATION
 **Simulate real attacks:**
 
-# Attack 1:
+## Attack 1:
 
 **Port scan:**
 
 `nmap -sS <Windows_IP>`
 
-# Attack 2:
+## Attack 2:
 
 **Brute force:**
 
 `hydra -l admin -P rockyou.txt <IP> ssh`
 
-# Attack 3:
+## Attack 3:
 
 Fake malware:
 
 Create suspicious PowerShell execution.
 
-# Attack 4 (On your Ubuntu Server) :
+## Attack 4 (On your Ubuntu Server) :
 **Open the terminal on your Ubuntu VM**
 - **Run this command to try and log in as a fake user named "attacker" 10 times:**
 ![Attack Chart](images/attacked_10_times.png)

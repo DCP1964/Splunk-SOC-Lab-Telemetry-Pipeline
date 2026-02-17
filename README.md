@@ -112,7 +112,7 @@ This logs:
 
 **To Splunk**
 
-##INSTALL LOGGING ON UBUNTU
+## INSTALL LOGGING ON UBUNTU
 **On Ubuntu machine:**
 **Install auditd:**
 
@@ -124,7 +124,7 @@ This logs:
 `/var/log/auth.log` 
 `/var/log/syslog`
 
-#ATTACK SIMULATION
+# ATTACK SIMULATION
 **Simulate real attacks:**
 
 ### Attack 1:

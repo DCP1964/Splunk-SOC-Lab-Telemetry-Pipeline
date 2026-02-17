@@ -86,7 +86,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 
 `Forward to: <IP_of_Splunk_Server>:9997`
 
-##INSTALL SYSMON 
+## INSTALL SYSMON 
 **Sysmon gives deep visibility like an EDR.**
     - **On Windows VM:**
     - **Download Sysmon from Microsoft**
@@ -103,7 +103,7 @@ This logs:
 - **Network connections**    
 - **PowerShell attacks**
 
-##CONNECT WINDOWS LOGS TO SPLUNK
+## CONNECT WINDOWS LOGS TO SPLUNK
 
 **Forward:**-
     - **Security Logs**    
@@ -127,25 +127,25 @@ This logs:
 #ATTACK SIMULATION
 **Simulate real attacks:**
 
-##Attack 1:
+### Attack 1:
 
 **Port scan:**
 
 `nmap -sS <Windows_IP>`
 
-##Attack 2:
+### Attack 2:
 
 **Brute force:**
 
 `hydra -l admin -P rockyou.txt <IP> ssh`
 
-##Attack 3:
+### Attack 3:
 
 Fake malware:
 
 Create suspicious PowerShell execution.
 
-##Attack 4 (On your Ubuntu Server) :
+### Attack 4 (On your Ubuntu Server) :
 **Open the terminal on your Ubuntu VM**
 - **Run this command to try and log in as a fake user named "attacker" 10 times:**
 ![Attack Chart](images/attacked_10_times.png)
@@ -182,7 +182,7 @@ Create suspicious PowerShell execution.
     - **Trigger Conditions: Set to "Greater than 5" within a "1 minute" window.**
     - **Action: For now, set it to "Add to Triggered Alerts".**
 
-#### 📊 Visualization
+## 📊 Visualization
 Successfully visualized the brute-force attack using Splunk's visualization engine to identify the most targeted accounts.
 ![Attack Chart](images/brute_force_chart.png)
 
@@ -206,7 +206,7 @@ Successfully captured:
 - Since we have successfully captured the brute-force attack in Splunk, moving to Fail2Ban is a perfect way to transition from monitoring to automated defense.
 - Fail2Ban works by constantly scanning your logs (the same auth.log we just configured) for the "Failed password" patterns you just hunted. When it sees too many failures from one IP, it automatically updates your system firewall to block that attacker.
 
-**Implementing Automated Defense with Fail2Ban**
+## **Implementing Automated Defense with Fail2Ban**
 
 1. Install Fail2Ban on Ubuntu
 Open your Ubuntu Server terminal and run:
@@ -239,7 +239,7 @@ Save and Exit from Nano Editor: Press Ctrl+O, then Enter, then Ctrl+X.
 3. Start the Defender
 `sudo systemctl restart fail2ban
 
-### 🛡️ Automated Defense: Fail2Ban Integration
+## 🛡️ Automated Defense: Fail2Ban Integration
 To mitigate the detected brute-force attacks, I implemented **Fail2Ban** to monitor `auth.log` and automatically block malicious IPs.
 - **Policy:** 3 failed attempts results in a 1-hour ban.
 - **Result:** Successfully blocked simulated attack from `127.0.0.1` after the 3rd retry.

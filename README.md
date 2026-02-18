@@ -6,20 +6,12 @@ An end-to-end SOC lab featuring a Windows 10 endpoint, Sysmon telemetry, and an 
 ## Executive Summary
 Successfully built a functional Security Operations Center (SOC) lab to monitor Windows endpoint activity using Splunk SIEM. This project demonstrates my ability to configure telemetry agents, manage log ingestion, and troubleshoot complex data pipeline issues.
 
-- Built an end-to-end SOC telemetry pipeline
-- Simulated real-world attacks
-- Created detections in Splunk
-- Investigated incidents
-- Implemented automated response
-- Indexed 19k+ events
-
-## Project Goals 
-- **Build a SOC lab from scratch** 
-- **Collect logs** 
-- **Detect attacks** 
-- **Investigate incidents**
-- **Write detection reports**
-- **Use Splunk like a real analyst**
+- **Built an end-to-end SOC telemetry pipeline**
+- **Simulated real-world attacks**
+- **Created detections in Splunk**
+- **Investigated incidents**
+- **Implemented automated response**
+- **Indexed 19k+ events**
 
 ## Tools & Environment
 - **SIEM:** Splunk Enterprise (Ubuntu Server 24.04)

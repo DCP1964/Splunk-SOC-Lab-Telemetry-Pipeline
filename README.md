@@ -1,10 +1,17 @@
-# Splunk-SOC-Lab-Telemetry-Pipeline
+# End-to-End SOC Lab: Attack Detection, Log Analysis & Incident Response (Splunk-based)
 An end-to-end SOC lab featuring a Windows 10 endpoint, Sysmon telemetry, and an Ubuntu-based Splunk SIEM for threat detection.
 
 # End-to-End SOC Lab: Splunk Telemetry Pipeline
 
-## Overview
+## Executive Summary
 Successfully built a functional Security Operations Center (SOC) lab to monitor Windows endpoint activity using Splunk SIEM. This project demonstrates my ability to configure telemetry agents, manage log ingestion, and troubleshoot complex data pipeline issues.
+
+- Built an end-to-end SOC telemetry pipeline
+- Simulated real-world attacks
+- Created detections in Splunk
+- Investigated incidents
+- Implemented automated response
+- Indexed 19k+ events
 
 ## Project Goals 
 - **Build a SOC lab from scratch** 
@@ -22,11 +29,13 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 
 ## Architecture
 1. **Windows 10 Victim:** Generates Event Logs and Sysmon telemetry.
-2. **Splunk Universal Forwarder:** Sends data over port 9997.
+2. **Splunk Enterprise, Universal Forwarder:** Sends data over port 9997.
 3. **Ubuntu Splunk Server:** Ingests, indexes, and visualizes the data.
 4. **Sysmon** ( for deep logging)
-5. **Kali Linux**
+5. **Kali Linux (Attacker)**
 6. **VirtualBox**
+7. **Linux logs**
+8. **Fail2Ban response**
 
 ## Demonstrating
 - **Brute force detection**
@@ -34,7 +43,13 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 - **Port scanning detection**
 - **Suspicious PowerShell detection**
 - **Log correlation**
-- **Incident report writing**
+- **Incident summary and report writing**
+- **Investigation steps**
+- **Containment**
+- **Lessons learned**
+
+## Sigma Rules
+- **Platform-agnostic detections**
 
 ## Creating Machines
 - **VM 1 — Windows 10**
@@ -200,6 +215,13 @@ Successfully captured:
 - **WinEventLog:Security** (Logon/Logoff events)
 - **WinEventLog:System** (Service changes)
 - **Sysmon:Operational** (Process creation, Network connections)
+
+## MITRE ATT&CK Mapping
+| Attack      | Technique         | ID        |
+| ----------- | ----------------- | --------- |
+| Brute Force | Credential Access | T1110     |
+| PowerShell  | Execution         | T1059.001 |
+| Port Scan   | Discovery         | T1046     |
 
 
 # Hardening the System

@@ -76,8 +76,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 
 **Create:**
 - Username-- admin    
-- Password: password123
-    
+- Password: password123    
 
 **Open in browser:**
 
@@ -87,7 +86,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 
 **On Windows VM:**
 **Download:**
-- **Splunk Universal Forwarder*
+- **Splunk Universal Forwarder**
 
 **Install and choose:**
 
@@ -103,7 +102,7 @@ Successfully built a functional Security Operations Center (SOC) lab to monitor 
 `Sysmon64.exe -i sysmonconfig.xml`
 
 **Use config:**
-- **SwiftOnSecurity sysmon config (Google it)**
+- **SwiftOnSecurity sysmon config**
 This logs:
 - **Process creation**    
 - **Malware behavior**    
@@ -131,7 +130,7 @@ This logs:
 `/var/log/auth.log` 
 `/var/log/syslog`
 
-# ATTACK SIMULATION
+## ATTACK SIMULATION
 **Simulate real attacks:**
 
 ### Attack 1:
@@ -193,7 +192,7 @@ Create suspicious PowerShell execution.
 Successfully visualized the brute-force attack using Splunk's visualization engine to identify the most targeted accounts.
 ![Attack Chart](images/brute_force_chart.png)
 
-## The "SOC Mindset": Troubleshooting Log Ingestion
+## Troubleshooting Log Ingestion
 During the setup, I encountered a "Data Silent" issue where the connection was established but logs were not indexing. I resolved this through:
 - **Network Analysis:** Verified the `ESTABLISHED` state on the Ubuntu server using `netstat`.
 `sudo netstat -anp | grep 9997`
@@ -258,6 +257,13 @@ To mitigate the detected brute-force attacks, I implemented **Fail2Ban** to moni
 - **Policy:** 3 failed attempts results in a 1-hour ban.
 - **Result:** Successfully blocked simulated attack from `127.0.0.1` after the 3rd retry.
 ![Fail2Ban Proof](img/fail2ban_status.png)
+
+## SOC Metrics
+- Events indexed: 19,000+
+- Data sources: 4
+- Detection rules created: 5
+- Attack simulations executed: 4
+- Alert response time: < 1 minute
 
 # Achievements
 - **The Environment: A functional Linux server sending security logs to Splunk.**

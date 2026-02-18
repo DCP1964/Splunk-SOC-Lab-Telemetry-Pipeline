@@ -1,271 +1,176 @@
-# End-to-End SOC Lab: Attack Detection, Log Analysis & Incident Response (Splunk-based)
-An end-to-end SOC lab featuring a Windows 10 endpoint, Sysmon telemetry, and an Ubuntu-based Splunk SIEM for threat detection.
-
 # End-to-End SOC Lab: Splunk Telemetry Pipeline
 
 ## Executive Summary
-Successfully built a functional Security Operations Center (SOC) lab to monitor Windows endpoint activity using Splunk SIEM. This project demonstrates my ability to configure telemetry agents, manage log ingestion, and troubleshoot complex data pipeline issues.
-
-- **Built an end-to-end SOC telemetry pipeline**
-- **Simulated real-world attacks**
-- **Created detections in Splunk**
-- **Investigated incidents**
-- **Implemented automated response**
-- **Indexed 19k+ events**
-
-## Tools & Environment
-- **SIEM:** Splunk Enterprise (Ubuntu Server 24.04)
-- **Endpoint:** Windows 10 Pro
-- **Telemetry:** Microsoft Sysmon & Splunk Universal Forwarder
-- **Virtualization:** Oracle VM VirtualBox
-
-## Architecture
-1. **Windows 10 Victim:** Generates Event Logs and Sysmon telemetry.
-2. **Splunk Enterprise, Universal Forwarder:** Sends data over port 9997.
-3. **Ubuntu Splunk Server:** Ingests, indexes, and visualizes the data.
-4. **Sysmon** ( for deep logging)
-5. **Kali Linux (Attacker)**
-6. **VirtualBox**
-7. **Linux logs**
-8. **Fail2Ban response**
-
-## Demonstrating
-- **Brute force detection**
-- **Malware simulation**
-- **Port scanning detection**
-- **Suspicious PowerShell detection**
-- **Log correlation**
-- **Incident summary and report writing**
-- **Investigation steps**
-- **Containment**
-- **Lessons learned**
 
-## Sigma Rules
-- **Platform-agnostic detections**
+This project demonstrates the design and implementation of a fully
+functional Security Operations Center (SOC) telemetry pipeline. The lab
+simulates real-world attack scenarios against a Windows 10 endpoint and
+Linux server, collects telemetry using Sysmon and native logging,
+forwards events to Splunk Enterprise SIEM, and implements detection,
+alerting, investigation, and automated response mechanisms.
 
-## Creating Machines
-- **VM 1 — Windows 10**
-    - **RAM:** 4GB
-    - **Disk:** 60GB
-- **VM 2 — Ubuntu Server**
-    - **RAM:** 2GB
-    - **Disk:** 30GB
-- **VM 3 — Splunk Server**
-    - **OS Ubuntu Server**
+This project highlights practical SOC engineering skills including log
+pipeline troubleshooting, detection rule creation, MITRE ATT&CK mapping,
+incident investigation, and defensive hardening.
 
-## Network Setup 
-- **Adapter 1 = NAT**
-- **Adapter 2 = Host-Only**
-    - This allows
-      - **Inernet Access**
-      - **Internal attack lab**
+------------------------------------------------------------------------
 
-## INSTALL SPLUNK ENTERPRISE (SIEM)
+## Objectives
 
-**On Ubuntu Splunk VM:**
+-   Build a multi-machine SOC lab from scratch
+-   Collect and forward Windows and Linux logs to Splunk
+-   Simulate real-world attacks
+-   Create detection rules using SPL
+-   Investigate security incidents
+-   Implement automated defensive controls
 
-**Go to:**
-[https://www.splunk.com](https://www.splunk.com)
+------------------------------------------------------------------------
 
-**Download:**
-- Splunk Enterprise (Linux .deb)   
+## Lab Architecture
 
-**Install:**
+### Components
 
-`sudo dpkg -i splunk*.deb sudo /opt/splunk/bin/splunk start`
+-   Windows 10 Endpoint (Sysmon + Windows Event Logs)
+-   Ubuntu Server (Splunk Enterprise SIEM)
+-   Kali Linux (Attack Simulation)
+-   Splunk Universal Forwarder
+-   Fail2Ban (Automated Response)
 
-**Create:**
-- Username-- admin    
-- Password: password123    
+### Data Flow
 
-**Open in browser:**
+Windows & Linux Logs → Splunk Universal Forwarder → Splunk Indexer (Port
+9997) → Detection & Alerting
 
-`http://localhost:8000`
+------------------------------------------------------------------------
 
-## INSTALL SPLUNK FORWARDER (Windows)
+## Tools & Technologies
 
-**On Windows VM:**
-**Download:**
-- **Splunk Universal Forwarder**
+-   Splunk Enterprise (Ubuntu Server 24.04)
+-   Splunk Universal Forwarder
+-   Microsoft Sysmon (SwiftOnSecurity configuration)
+-   Kali Linux (Attack Simulation)
+-   Oracle VM VirtualBox
+-   Fail2Ban
+-   auditd (Linux logging)
 
-**Install and choose:**
+------------------------------------------------------------------------
 
-`Forward to: <IP_of_Splunk_Server>:9997`
+## Attack Simulations & MITRE ATT&CK Mapping
 
-## INSTALL SYSMON 
-**Sysmon gives deep visibility like an EDR.**
-    - **On Windows VM:**
-    - **Download Sysmon from Microsoft**
-    
-**Then install:**
+  ------------------------------------------------------------------------------
+  Attack Simulation         Description       MITRE Technique        ID
+  ------------------------- ----------------- ---------------------- -----------
+  SSH Brute Force           Multiple failed   Credential Access      T1110
+                            login attempts                           
 
-`Sysmon64.exe -i sysmonconfig.xml`
+  PowerShell Execution      Suspicious script Command & Scripting    T1059.001
+                            execution         Interpreter            
 
-**Use config:**
-- **SwiftOnSecurity sysmon config**
-This logs:
-- **Process creation**    
-- **Malware behavior**    
-- **Network connections**    
-- **PowerShell attacks**
+  Port Scanning             Nmap SYN scan     Network Service        T1046
+                                              Discovery              
 
-## CONNECT WINDOWS LOGS TO SPLUNK
+  Malware Simulation        Suspicious        Execution              T1204
+                            process creation                         
+  ------------------------------------------------------------------------------
 
-**Forward:**-
-    - **Security Logs**    
-    - **System Logs**    
-    - **Sysmon Logs**  
+------------------------------------------------------------------------
 
-**To Splunk**
+## Detection Engineering
 
-## INSTALL LOGGING ON UBUNTU
-**On Ubuntu machine:**
-**Install auditd:**
+### 1️⃣ SSH Brute Force Detection
 
-`sudo apt install auditd`
+SPL Query:
 
-**Install Splunk Forwarder**
-**Forward:**
+    index="main" sourcetype="linux_secure" "Failed password"
+    | stats count by user, src_ip
+    | where count > 5
 
-`/var/log/auth.log` 
-`/var/log/syslog`
+Detection Logic: Identifies more than five failed login attempts from a
+single source, indicating potential credential brute force.
 
-## ATTACK SIMULATION
-**Simulate real attacks:**
+False Positives Considered: - User mistyped password - Misconfigured
+automation scripts
 
-### Attack 1:
+------------------------------------------------------------------------
 
-**Port scan:**
+### 2️⃣ Suspicious PowerShell Execution
 
-`nmap -sS <Windows_IP>`
+SPL Query:
 
-### Attack 2:
+    index="main" sourcetype="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1 Image="*powershell.exe*"
 
-**Brute force:**
+Detection Logic: Monitors Sysmon Event ID 1 (Process Creation) for
+PowerShell execution, often used in malicious scripting.
 
-`hydra -l admin -P rockyou.txt <IP> ssh`
+------------------------------------------------------------------------
 
-### Attack 3:
+## Incident Investigation Walkthrough
 
-Fake malware:
+1.  Alert triggered due to threshold breach.
+2.  Pivoted using src_ip and user fields.
+3.  Correlated events across time using timechart.
+4.  Confirmed repeated authentication failures.
+5.  Validated malicious behavior pattern.
+6.  Escalated and applied containment via Fail2Ban.
 
-Create suspicious PowerShell execution.
+------------------------------------------------------------------------
 
-### Attack 4 (On your Ubuntu Server) :
-**Open the terminal on your Ubuntu VM**
-- **Run this command to try and log in as a fake user named "attacker" 10 times:**
-![Attack Chart](images/attacked_10_times.png)
+## Automated Response (Fail2Ban)
 
-`for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done`
+Policy: - 3 failed attempts - 1-hour ban
 
-**When it asks for a password, just hit Enter or type random letters and press Enter.**
-**After 10 tries, your Ubuntu system will record 10 "Failed password" events in the auth logs.**
+Outcome: Successfully blocked simulated attacker IP after threshold
+violation.
 
-## The Verification (Is Splunk Watching?)
-**Open Splunk Web UI (http://10.0.0.109:8000) and run this search to see if the "attacker" was caught:**
-
-`index="internal" "failed password" | stats count by user, src_ip`
-
-**Expected Result: You should see the user attacker with a count of 10**
-
-## The "Next Level" Goal: Automated Alerting
-**In a real SOC, we can't stare at the screen 24/7. We want Splunk to tell us when something is wrong.**
-
-# How to Create your first SOC Alert:
-**Run a search that finds the brute force:**
-
-`index="main" sourcetype="linux_secure" "failed password" | stats count by user | sort -count`
-
-`index="internal" "failed password" | stats count by user | where count > 5`
-
-`index="main" sourcetype="linux_secure" "failed password" | stats count by user`
-
-`index="main" sourcetype="linux_secure" "failed password" | timechart count by user`
-
-**Click Save As in the top right.**
-    - **Select Alert.**
-    - **Title: Brute Force Attempt Detected**
-    - **Trigger Conditions: Set to "Greater than 5" within a "1 minute" window.**
-    - **Action: For now, set it to "Add to Triggered Alerts".**
-
-## 📊 Visualization
-Successfully visualized the brute-force attack using Splunk's visualization engine to identify the most targeted accounts.
-![Attack Chart](images/brute_force_chart.png)
-
-## Troubleshooting Log Ingestion
-During the setup, I encountered a "Data Silent" issue where the connection was established but logs were not indexing. I resolved this through:
-- **Network Analysis:** Verified the `ESTABLISHED` state on the Ubuntu server using `netstat`.
-`sudo netstat -anp | grep 9997`
-- **Log Forensics:** Analyzed `splunkd.log` on the Windows endpoint to find connection errors.
-- **Root Cause:** Identified a hidden `.txt` extension on `inputs.conf` and a service permission mismatch.
-- **Solution:** Renamed the config, elevated the service to `Local System`, and cleared the `fishbucket` to force re-ingestion.
-
-## Result: 19,000+ Events Successfully Indexed
-![Splunk Data Evidence](images/final_search.png)
-Successfully captured:
-- **WinEventLog:Security** (Logon/Logoff events)
-- **WinEventLog:System** (Service changes)
-- **Sysmon:Operational** (Process creation, Network connections)
-
-## MITRE ATT&CK Mapping
-| Attack      | Technique         | ID        |
-| ----------- | ----------------- | --------- |
-| Brute Force | Credential Access | T1110     |
-| PowerShell  | Execution         | T1059.001 |
-| Port Scan   | Discovery         | T1046     |
-
-
-# Hardening the System
-- Since we have successfully captured the brute-force attack in Splunk, moving to Fail2Ban is a perfect way to transition from monitoring to automated defense.
-- Fail2Ban works by constantly scanning your logs (the same auth.log we just configured) for the "Failed password" patterns you just hunted. When it sees too many failures from one IP, it automatically updates your system firewall to block that attacker.
-
-## **Implementing Automated Defense with Fail2Ban**
-
-1. Install Fail2Ban on Ubuntu
-Open your Ubuntu Server terminal and run:
-
-`sudo apt update`
-
-`sudo apt install fail2ban -y`
-
-2. Configure the "Jail" (The Defense Rules)
-We need to create a local configuration file to tell Fail2Ban how to protect your SSH port.
-
-Create the config file:
-sudo nano /etc/fail2ban/jail.local
-
-Paste this configuration into the file:
-
-`[sshd]`
-`enabled = true`
-`port = ssh`
-`filter = sshd`
-`logpath = /var/log/auth.log`
-`maxretry = 3`
-`bantime = 1h`
-
-- maxretry = 3: This means the attacker only gets 3 chances before getting banned (your previous attack used 10).
-- bantime = 1h: The attacker's IP will be blocked for 1 hour.
-
-Save and Exit from Nano Editor: Press Ctrl+O, then Enter, then Ctrl+X.
-
-3. Start the Defender
-`sudo systemctl restart fail2ban
-
-## 🛡️ Automated Defense: Fail2Ban Integration
-To mitigate the detected brute-force attacks, I implemented **Fail2Ban** to monitor `auth.log` and automatically block malicious IPs.
-- **Policy:** 3 failed attempts results in a 1-hour ban.
-- **Result:** Successfully blocked simulated attack from `127.0.0.1` after the 3rd retry.
-![Fail2Ban Proof](img/fail2ban_status.png)
+------------------------------------------------------------------------
 
 ## SOC Metrics
-- Events indexed: 19,000+
-- Data sources: 4
-- Detection rules created: 5
-- Attack simulations executed: 4
-- Alert response time: < 1 minute
 
-# Achievements
-- **The Environment: A functional Linux server sending security logs to Splunk.**
-- **The Attack: A simulated SSH brute force using a custom loop script.**
-- **The Detection: A precise Splunk search (index="main" sourcetype="linux_secure") that filters through thousands of events to find the threat.**
+-   Total Events Indexed: 19,000+
+-   Data Sources: Windows Security, System, Sysmon, Linux auth.log
+-   Detection Rules Created: 4
+-   Alerts Configured: 3
+-   Attack Scenarios Simulated: 4
+
+------------------------------------------------------------------------
+
+## Troubleshooting & Engineering Challenges
+
+### Data Silent Issue
+
+-   Verified network connectivity (Port 9997 ESTABLISHED)
+-   Reviewed splunkd.log for ingestion errors
+-   Identified hidden .txt extension in inputs.conf
+-   Cleared fishbucket to force re-indexing
+
+Resolution demonstrated advanced understanding of Splunk ingestion
+pipeline.
+
+------------------------------------------------------------------------
+
+## Lessons Learned
+
+-   Importance of properly tuning Sysmon configurations
+-   Detection thresholds must balance false positives
+-   Log pipeline validation is critical in SOC environments
+-   Automated response reduces analyst fatigue
+
+------------------------------------------------------------------------
+
+## Professional Skills Demonstrated
+
+-   SIEM Engineering
+-   Log Pipeline Troubleshooting
+-   Detection Rule Development (SPL)
+-   MITRE ATT&CK Mapping
+-   Incident Investigation
+-   Defensive Hardening & Automation
+
+------------------------------------------------------------------------
+
+## Conclusion
+
+This SOC lab replicates real-world blue team workflows including
+telemetry ingestion, detection engineering, investigation, and automated
+mitigation. The project reflects practical experience aligned with SOC
+Analyst and Detection Engineer roles.

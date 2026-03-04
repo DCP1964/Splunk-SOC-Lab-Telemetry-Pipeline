@@ -519,7 +519,7 @@ Screenshot
 
 # 19. Troubleshooting
 
-Issue
+Issue 1
 
 Logs not appearing in Splunk.
 
@@ -533,7 +533,26 @@ Corrected configuration and restarted forwarder.
 
 Result
 
-19,000+ events successfully indexed.
+
+
+Issue 2
+
+Logs not appearing in Splunk.
+
+Root Cause
+
+Permissions issue , Gave permissions in LOG On Tab of the service Splunkforwarder and restarted the service.
+
+Resolution
+
+Gave permissions in LOG On Tab of the service Splunkforwarder and restarted the service.
+
+Result
+Logs started appearing in the Splunk after searching a query
+
+38,000+ events successfully indexed.
+
+
 
 ------------------------------------------------------------------------
 

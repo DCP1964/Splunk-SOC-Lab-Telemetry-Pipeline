@@ -1,1 +1,48 @@
+# Detection Name
+Encoded PowerShell Execution Detection
 
+# Description
+Detects suspicious PowerShell commands executed with Base64 encoded payloads.
+Attackers commonly use encoded commands to hide malicious activity and evade detection.
+
+# Data Source
+Sysmon Event Logs
+
+# Splunk Sourcetype
+XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+
+# MITRE ATT&CK Mapping
+Tactic: Execution
+Technique: Command and Scripting Interpreter: PowerShell
+Technique ID: T1059.001
+
+# Detection Query
+
+index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventID=1
+(Image="*powershell.exe" OR Image="*pwsh.exe")
+(CommandLine="*-enc*" OR CommandLine="*EncodedCommand*")
+| table _time host User Image CommandLine ParentImage
+| sort -_time
+
+# Detection Logic
+1. Filters Sysmon Process Creation events (EventID=1)
+2. Searches for PowerShell execution
+3. Identifies encoded command flags (-enc or -EncodedCommand)
+4. Displays relevant process information
+
+# Expected Result
+Encoded PowerShell commands should appear in the results, including the simulated attack:
+
+powershell -EncodedCommand UwB0AGEAcgB0AC0AUAByAG8AYwBlAHMAcwAgAGMAYQBsAGMALgBlAHgAZQA=
+
+# Investigation Steps
+1. Identify the parent process
+2. Decode the Base64 command
+3. Determine the executed payload
+4. Analyze spawned child processes
+5. Check for persistence mechanisms
+
+# False Positive Considerations
+Administrative scripts using encoded PowerShell
+Automation frameworks
+Software deployment tools

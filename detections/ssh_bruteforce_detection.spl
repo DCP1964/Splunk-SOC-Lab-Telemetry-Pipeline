@@ -1,1 +1,35 @@
+# Detection Name
+SSH Brute Force Detection
 
+# Description
+Detects potential SSH brute force attacks by identifying multiple failed login attempts
+from the same source IP within a short time window.
+
+# Data Source
+Linux Authentication Logs (/var/log/auth.log)
+
+# Splunk Sourcetype
+linux_secure
+
+# MITRE ATT&CK
+Tactic: Credential Access
+Technique: Brute Force
+ID: T1110
+
+# Detection Query
+
+index=main sourcetype="linux_secure" "Failed password"
+| rex "Failed password for (invalid user )?(?<user>\w+) from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| bin _time span=1m
+| stats count by _time user src_ip
+| where count > 5
+| sort -count
+
+# Expected Behavior
+If more than 5 failed login attempts occur from the same IP within one minute,
+the activity is flagged as a potential brute-force attack.
+
+# False Positives
+User mistyping passwords
+Automated scripts using incorrect credentials
+Internal vulnerability scans

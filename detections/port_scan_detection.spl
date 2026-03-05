@@ -1,1 +1,39 @@
+# Detection Name
+Port Scan Detection
 
+# Description
+Detects potential port scanning activity by identifying hosts that
+attempt connections to multiple destination ports.
+
+# Data Source
+Sysmon Network Connection Logs
+
+# Splunk Sourcetype
+XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+
+# MITRE ATT&CK Mapping
+Tactic: Discovery
+Technique: Network Service Discovery
+Technique ID: T1046
+
+# Detection Query
+
+index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventID=3
+| stats count by SourceIp DestinationPort
+| sort -count
+
+# Detection Logic
+1. Monitors Sysmon network connection events
+2. Aggregates connections by source IP and destination port
+3. Identifies abnormal connection patterns
+
+# Investigation Steps
+1. Identify scanning source IP
+2. Check number of ports scanned
+3. Determine if scanning originated internally or externally
+4. Validate if activity came from security tools
+
+# False Positives
+Vulnerability scanners
+Network monitoring tools
+Administrative troubleshooting

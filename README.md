@@ -492,11 +492,15 @@ Top source IP addresses
 Splunk Dashboard
 
 SOC Security Monitoring Dashboard displaying
+The SOC Security Monitoring Dashboard provides visibility into key security events.
 
-- failed login attempts\
-- process execution telemetry\
-- Security Event Timeline
+Dashboard panels include:
 
+• Failed Windows login attempts  
+• Process execution telemetry from Sysmon  
+• Security event timeline visualization  
+
+These visualizations allow SOC analysts to quickly identify abnormal activity and investigate potential attacks.
 
 Screenshot
 

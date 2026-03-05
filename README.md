@@ -269,7 +269,7 @@ ID: T1110
 
 #### Screenshot
 
-![Windows Failed Logins](screenshots\windows_logon_failure.png)
+![Windows Failed Logins](screenshots/windows_logon_failure.png)
 
 ------------------------------------------------------------------------
 

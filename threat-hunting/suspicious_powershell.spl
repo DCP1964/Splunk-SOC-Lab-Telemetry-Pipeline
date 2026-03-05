@@ -1,1 +1,29 @@
+# Threat Hunting Query
+# Suspicious PowerShell Activity
 
+# Description
+This hunting query searches for PowerShell executions across the environment
+to identify unusual or suspicious command-line activity.
+
+# Data Source
+Sysmon Process Creation Logs
+
+# MITRE ATT&CK
+Tactic: Execution
+Technique: Command and Scripting Interpreter: PowerShell
+Technique ID: T1059.001
+
+index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventID=1
+(Image="*powershell.exe" OR Image="*pwsh.exe")
+| stats count by host User CommandLine ParentImage
+| sort -count
+
+# Hunting Goal
+Identify unusual PowerShell commands that may indicate attacker activity.
+
+# Investigation Tips
+Look for:
+- Encoded commands
+- Download commands (Invoke-WebRequest)
+- Suspicious parent processes
+- Unusual command arguments

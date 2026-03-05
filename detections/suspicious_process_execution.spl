@@ -1,0 +1,40 @@
+# Detection Name
+Suspicious Process Execution
+
+# Description
+Detects suspicious process execution chains where PowerShell launches
+unexpected child processes.
+
+# Data Source
+Sysmon Process Creation Logs
+
+# Splunk Sourcetype
+XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+
+# MITRE ATT&CK Mapping
+Tactic: Execution
+Technique: Command and Scripting Interpreter
+Technique ID: T1059
+
+# Detection Query
+
+index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventID=1
+Image="*powershell.exe"
+| table _time host User Image CommandLine ParentImage
+| sort -_time
+
+# Detection Logic
+1. Monitors Sysmon process creation events
+2. Filters processes launched by PowerShell
+3. Displays command-line execution details
+
+# Investigation Steps
+1. Identify parent process
+2. Analyze command-line arguments
+3. Determine spawned child processes
+4. Check if execution resembles attacker tradecraft
+
+# False Positives
+Administrative scripts
+Automation tasks
+Software deployment scripts

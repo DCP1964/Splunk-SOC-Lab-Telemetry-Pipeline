@@ -282,6 +282,8 @@ ID: T1110
 ```
 nmap -sS `<target-ip>`{=html}
 ```
+![Attack Commang NMAP](screenshots/attack_command_nmap.png)
+
 #### Detection Query
 ```
 index=main

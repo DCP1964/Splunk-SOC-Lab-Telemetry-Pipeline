@@ -221,6 +221,10 @@ Tactic: Credential Access\
 Technique: Brute Force\
 ID: T1110
 
+Detection Result
+
+This query identifies IP addresses performing multiple failed login attempts, indicating a potential brute-force attack.
+
 Screenshot
 
 ![SSH Brute Force Detection](screenshots/ssh_bruteforce_detection.png)

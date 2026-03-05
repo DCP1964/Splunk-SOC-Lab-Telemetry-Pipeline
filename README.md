@@ -301,11 +301,11 @@ ID: T1046
 
 #### Screenshot
 
-![Port Scan Detection](screenshots/port_scan_detection.png)
+![Port Scan Detection 1](screenshots/port_scan_detection.png)
 
-![Port Scan Detection](screenshots/port_scan_detection01.png)
+![Port Scan Detection 2](screenshots/port_scan_detection01.png)
 
-![Port Scan Detection](screenshots/port_scan_detection-2.png)
+![Port Scan Detection 3](screenshots/port_scan_detection-2.png)
 ------------------------------------------------------------------------
 
 ## Attack 4 --- Encoded PowerShell Execution

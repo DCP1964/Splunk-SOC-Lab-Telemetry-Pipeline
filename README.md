@@ -376,9 +376,9 @@ ID: T1059
 A safe malware simulation was performed using the EICAR test file. The EICAR string is a standardized antivirus test file used to safely simulate malware detection without causing harm to the system.
 
 #### Attack Command (Windows Endpoint)
-
+```
 echo X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE! > eicar.txt
-
+```
 #### Telemetry Generated
 
 Sysmon logs captured the activity including:
@@ -387,7 +387,7 @@ EventID 1 --- Process Creation
 EventID 11 --- File Creation
 
 #### Detection Query
-
+```
 index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | rex "<EventID>(?<EventID>\d+)</EventID>"
 | rex "<Data Name='Image'>(?<Process>[^<]+)"
@@ -396,7 +396,7 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | search FileCreated="*eicar*"
 | table _time host Process FileCreated
 | sort -_time
-
+```
 #### MITRE ATT&CK
 
 Tactic: Execution  
@@ -406,6 +406,9 @@ ID: T1204
 #### Detection Result
 
 The query detects creation of files containing the EICAR test string, demonstrating how SOC analysts can identify suspicious file creation activity associated with potential malware execution.
+
+#### Screenshots
+![EICAR MALWARE DETECTION](screenshots/eicar_malware_detection.png)
 ------------------------------------------------------------------------
 
 # 10. Detection Engineering

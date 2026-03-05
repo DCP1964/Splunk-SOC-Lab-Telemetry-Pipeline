@@ -675,3 +675,17 @@ Threat Simulation\
 Security Log Analysis\
 SOC Investigation Workflow\
 Endpoint Telemetry Analysis
+
+------------------------------------------------------------------------
+
+## Future Improvements
+
+Possible enhancements to this SOC lab include:
+
+• Integrating threat intelligence feeds
+• Automating detection using SOAR workflows
+• Adding ransomware detection scenarios
+• Implementing Active Directory attack simulations
+• Expanding Sigma rule coverage
+
+These improvements would further enhance the detection and response capabilities of the lab environment.

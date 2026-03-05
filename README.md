@@ -408,6 +408,7 @@ ID: T1204
 The query detects creation of files containing the EICAR test string, demonstrating how SOC analysts can identify suspicious file creation activity associated with potential malware execution.
 
 #### Screenshots
+
 ![EICAR MALWARE DETECTION](screenshots/eicar_malware_detection.png)
 ------------------------------------------------------------------------
 

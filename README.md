@@ -1,4 +1,4 @@
-# End-to-End SOC Lab: Attack Detection, Log Analysis & Incident Response (Splunk)
+# SOC Detection Engineering Lab – Splunk SIEM Telemetry Pipeline
 
 ## Executive Summary
 
@@ -176,8 +176,8 @@ Splunk Index Used:
 index=main
 
 Screenshot
-![Splunk Indexed Events](screenshots/splunk_index_events.png)
 
+![Splunk Indexed Events](screenshots/splunk_index_events.png)
 
 #### Log Collection Pipeline Verification
 Sysmon Telemetry Ingestion
@@ -258,11 +258,8 @@ Windows Security Logs
 
 #### Detection Query
 ```
-index=main EventCode=4625
-| stats count by Account_Name Source_Network_Address host
-| where count > 3
-| table Account_Name Source_Network_Address host count
-| sort -count
+index=main EventCode=4625 \| stats count by Account_Name
+Source_Network_Address \| sort -count
 ```
 #### MITRE ATT&CK
 
@@ -272,7 +269,7 @@ ID: T1110
 
 #### Screenshot
 
-![Windows Failed Logins](screenshots/windows_logon_failure.png)
+![Windows Failed Logins](screenshots\windows_logon_failure.png)
 
 ------------------------------------------------------------------------
 
@@ -282,18 +279,10 @@ ID: T1110
 ```
 nmap -sS `<target-ip>`{=html}
 ```
-![Attack Commang NMAP](screenshots/attack_command_nmap.png)
-
 #### Detection Query
 ```
-index=main
-| rex "<EventID>(?<EventID>\d+)</EventID>"
-| rex "<Data Name='DestinationPort'>(?<DestinationPort>\d+)"
-| rex "<Data Name='SourceIp'>(?<SourceIp>[^<]+)"
-| search EventID=3
-| stats count by DestinationPort SourceIp
-| sort -count
-
+index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
+-count
 ```
 #### MITRE ATT&CK
 
@@ -308,7 +297,6 @@ ID: T1046
 ![Port Scan Detection](screenshots/port_scan_detection01.png)
 
 ![Port Scan Detection](screenshots/port_scan_detection-2.png)
-
 ------------------------------------------------------------------------
 
 ## Attack 4 --- Encoded PowerShell Execution
@@ -338,11 +326,9 @@ ID: T1059.001
 
 #### Screenshot
 
-![Encoded PowerShell Detection](screenshots/encoded_powershell_detection.png)
+![Encoded PowerShell
+Detection](screenshots/encoded_powershell_detection.png)
 
-![Encoded PowerShell Detection](screenshots/encoded_powershell_execution-2.png)
-
-![Encoded PowerShell Detection](screenshots/encoded_powershell_execution-3.png)
 ------------------------------------------------------------------------
 
 ## Attack 5 --- Suspicious Process Execution
@@ -370,7 +356,7 @@ ID: T1059
 
 #### Screenshot
 
-![Suspicious Process Execution](screenshots/suspicious_process_execution.png)
+![Suspicious Process Execution](screenshots/suspicious_process.png)
 
 ------------------------------------------------------------------------
 
@@ -390,6 +376,20 @@ Detection logic\
 SPL query\
 MITRE mapping\
 False positive considerations
+
+False Positive Considerations
+
+Some legitimate system processes may trigger detections, including:
+
+• Windows update processes
+• Scheduled administrative scripts
+• Splunk Universal Forwarder processes
+
+Detection queries were tuned to exclude known benign processes such as:
+
+Process="*splunk*"
+
+Further tuning may be required in production environments.
 
 ------------------------------------------------------------------------
 
@@ -442,6 +442,32 @@ Severity
 
 Medium
 
+## SOC Alert Example
+
+Example Alert: Windows Brute Force Attempt
+
+Detection Query
+
+index=main EventCode=4625
+| stats count by Account_Name Source_Network_Address
+| where count > 3
+| sort -count
+
+Alert Logic
+
+If more than 3 failed login attempts are detected from a single IP address,
+an alert is triggered for SOC investigation.
+
+Severity
+
+Medium
+
+SOC Response
+
+1. Verify source IP address
+2. Check additional login attempts
+3. Investigate user account activity
+4. Block IP if malicious
 ------------------------------------------------------------------------
 
 # 13. Visualization
@@ -453,6 +479,15 @@ Examples:
 Brute force attack timeline\
 Top targeted users\
 Top source IP addresses
+
+Splunk Dashboard
+
+SOC Security Monitoring Dashboard displaying
+
+- failed login attempts\
+- process execution telemetry\
+- Security Event Timeline
+
 
 Screenshot
 
@@ -478,25 +513,15 @@ threat-hunting/
 
 # 15. MITRE ATT&CK Mapping
 
-  -----------------------------------------------------------------------
-  Attack            Tactic            Technique         ID
-  ----------------- ----------------- ----------------- -----------------
-  SSH Brute Force   Credential Access Brute Force       T1110
+The simulated attacks and detections in this lab were mapped to the MITRE ATT&CK framework.
 
-  Windows Logon     Credential Access Brute Force       T1110
-  Failure                                               
-
-  Encoded           Execution         PowerShell        T1059.001
-  PowerShell                                            
-  Execution                                             
-
-  Port Scan         Discovery         Network Service   T1046
-                                      Discovery         
-
-  Suspicious        Execution         Command           T1059
-  Process Execution                   Interpreter       
-  -----------------------------------------------------------------------
-
+| Attack | Technique | MITRE ID |
+|------|------|------|
+| SSH Brute Force | Brute Force | T1110 |
+| Windows Logon Failure | Credential Access | T1110 |
+| Encoded PowerShell Execution | PowerShell | T1059.001 |
+| Port Scan | Network Service Discovery | T1046 |
+| Suspicious Process Execution | Command Interpreter | T1059 |
 ------------------------------------------------------------------------
 
 # 16. SOC Investigation Workflow
@@ -506,11 +531,24 @@ Example workflow
 Alert triggered → SOC analyst reviews logs → Process tree analysis →
 Timeline reconstruction → MITRE ATT&CK mapping → Incident documentation
 
-Example Process Tree
+### Example Process Tree Investigation
+
+Process creation events from Sysmon were analyzed to identify suspicious execution chains.
 
 cmd.exe\
 → powershell.exe\
 → calc.exe
+
+Splunk Query
+
+index=main
+| rex "<EventID>(?<EventID>\d+)</EventID>"
+| rex "<Data Name='Image'>(?<Process>[^<]+)"
+| rex "<Data Name='ParentImage'>(?<ParentProcess>[^<]+)"
+| search EventID=1
+| table _time host ParentProcess Process
+| sort -_time
+
 
 Screenshot
 

@@ -320,7 +320,7 @@ ID: T1059.001
 
 ![Encoded PowerShell Detection](screenshots/encoded_powershell_execution-2.png)
 
-![Encoded PowerShell Detection](screenshots/encoded_powershell_detection-3.png)
+![Encoded PowerShell Detection](screenshots/encoded_powershell_execution-3.png)
 ------------------------------------------------------------------------
 
 ## Attack 5 --- Suspicious Process Execution

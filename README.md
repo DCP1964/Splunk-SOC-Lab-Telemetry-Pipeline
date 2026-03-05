@@ -269,7 +269,7 @@ ID: T1110
 
 #### Screenshot
 
-![Windows Failed Logins](screenshots/windows_logon_failure.png)
+![Windows Failed Logins](screenshots\windows_logon_failure.png)
 
 ------------------------------------------------------------------------
 
@@ -356,13 +356,13 @@ ID: T1059
 
 #### Screenshot
 
-![Suspicious Process Execution](screenshots/suspicious_process_execution.png)
+![Suspicious Process Execution](screenshots/suspicious_process.png)
 
 ------------------------------------------------------------------------
 
 # 10. Detection Engineering
 
-Detection rules created:
+### Detection rules created:
 
 SSH brute force detection\
 Windows credential attack detection\
@@ -370,19 +370,19 @@ Encoded PowerShell detection\
 Port scan detection\
 Suspicious process execution detection
 
-Each detection includes:
+### Each detection includes:
 
 Detection logic\
 SPL query\
 MITRE mapping\
 False positive considerations
 
-False Positive Considerations
+### False Positive Considerations
 
 Some legitimate system processes may trigger detections, including:
 
-• Windows update processes
-• Scheduled administrative scripts
+• Windows update processes\
+• Scheduled administrative scripts\
 • Splunk Universal Forwarder processes
 
 Detection queries were tuned to exclude known benign processes such as:

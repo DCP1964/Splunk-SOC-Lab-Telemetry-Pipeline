@@ -15,7 +15,7 @@ ATT&CK framework**.
 Key achievements:
 
 -   Built a complete telemetry pipeline using Splunk Universal Forwarder
--   Indexed **19,000+ security events**
+-   Indexed **38,000+ security events**
 -   Simulated multiple attack techniques
 -   Developed detection rules using **Splunk SPL**
 -   Created SOC alerts and dashboards

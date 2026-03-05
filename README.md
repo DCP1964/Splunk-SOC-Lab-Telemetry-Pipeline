@@ -284,8 +284,14 @@ nmap -sS `<target-ip>`{=html}
 ```
 #### Detection Query
 ```
-index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
--count
+index=main
+| rex "<EventID>(?<EventID>\d+)</EventID>"
+| rex "<Data Name='DestinationPort'>(?<DestinationPort>\d+)"
+| rex "<Data Name='SourceIp'>(?<SourceIp>[^<]+)"
+| search EventID=3
+| stats count by DestinationPort SourceIp
+| sort -count
+
 ```
 #### MITRE ATT&CK
 
@@ -297,6 +303,9 @@ ID: T1046
 
 ![Port Scan Detection](screenshots/port_scan_detection.png)
 
+![Port Scan Detection](screenshots/port_scan_detection01.png)
+
+![Port Scan Detection](screenshots/port_scan_detection-2.png)
 
 ------------------------------------------------------------------------
 

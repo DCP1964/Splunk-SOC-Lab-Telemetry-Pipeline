@@ -1,0 +1,40 @@
+# Detection Name
+Windows Logon Failure Detection
+
+# Description
+Detects repeated Windows logon failures which may indicate a brute-force
+or password spraying attack against user accounts.
+
+# Data Source
+Windows Security Event Logs
+
+# Splunk Sourcetype
+WinEventLog:Security
+
+# MITRE ATT&CK Mapping
+Tactic: Credential Access
+Technique: Brute Force
+Technique ID: T1110
+
+# Detection Query
+
+index=main sourcetype="WinEventLog:Security" EventCode=4625
+| stats count by Account_Name, Source_Network_Address
+| sort -count
+
+# Detection Logic
+1. Monitors Windows Security logs
+2. Filters failed login attempts (EventID 4625)
+3. Aggregates attempts by user and source IP
+4. Highlights accounts receiving many failures
+
+# Investigation Steps
+1. Identify targeted user accounts
+2. Check originating IP address
+3. Determine if failures are internal or external
+4. Correlate with successful login events (4624)
+
+# False Positives
+Users mistyping passwords
+Expired credentials
+Automated services using old passwords

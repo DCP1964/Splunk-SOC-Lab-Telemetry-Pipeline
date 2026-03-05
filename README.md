@@ -331,8 +331,14 @@ PowerShell spawning calc.exe
 
 #### Detection Query
 ```
-index=main EventID=1 Image="\*powershell.exe" \| table \_time host Image
-CommandLine ParentImage
+index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex "<EventID>(?<EventID>\d+)</EventID>"
+| rex "<Data Name='Image'>(?<Process>[^<]+)"
+| rex "<Data Name='ParentImage'>(?<ParentProcess>[^<]+)"
+| where EventID=1
+| search NOT Process="*splunk*"
+| table _time host ParentProcess Process
+| sort -_time
 ```
 #### MITRE ATT&CK
 

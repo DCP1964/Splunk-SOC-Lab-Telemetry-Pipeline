@@ -342,7 +342,7 @@ ID: T1059
 
 #### Screenshot
 
-![Suspicious Process Execution](screenshots/suspicious_process.png)
+![Suspicious Process Execution](screenshots/suspicious_process_execution.png)
 
 ------------------------------------------------------------------------
 

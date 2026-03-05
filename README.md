@@ -177,7 +177,7 @@ index=main
 
 Screenshot
 
-![Splunk Indexed Events](screenshots/splunk_index_events.png)
+
 
 #### Log Collection Pipeline Verification
 Sysmon Telemetry Ingestion

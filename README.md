@@ -294,7 +294,7 @@ ID: T1046
 
 ![Port Scan Detection](screenshots/port_scan_detection.png)
 
-![Port Scan Detection](screenshots/encoded_powershell_execution-2.png)
+
 ------------------------------------------------------------------------
 
 ## Attack 4 --- Encoded PowerShell Execution
@@ -318,7 +318,7 @@ ID: T1059.001
 
 ![Encoded PowerShell Detection](screenshots/encoded_powershell_detection.png)
 
-![Encoded PowerShell Detection](screenshots/encoded_powershell_detection-2.png)
+![Encoded PowerShell Detection](screenshots/encoded_powershell_execution-2.png)
 
 ![Encoded PowerShell Detection](screenshots/encoded_powershell_detection-3.png)
 ------------------------------------------------------------------------

@@ -543,6 +543,7 @@ cmd.exe\
 
 Splunk Query
 
+```
 index=main
 | rex "<EventID>(?<EventID>\d+)</EventID>"
 | rex "<Data Name='Image'>(?<Process>[^<]+)"
@@ -550,7 +551,7 @@ index=main
 | search EventID=1
 | table _time host ParentProcess Process
 | sort -_time
-
+```
 
 Screenshot
 

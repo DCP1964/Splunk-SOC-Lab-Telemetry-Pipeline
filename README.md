@@ -306,7 +306,15 @@ UwB0AGEAcgB0AC0AUAByAG8AYwBlAHMAcwAgAGMAYQBsAGMALgBlAHgAZQA=
 ```
 #### Detection Query
 ```
-index=main EventID=1 "*EncodedCommand*"
+index=main  "*EncodedCommand*"
+| rex "<EventID>(?<EventID>\d+)</EventID>"
+| search EventID=1
+
+or
+index=main  "*EncodedCommand*"
+| rex "<EventID>(?<EventID>\d+)</EventID>"
+| search EventID=1
+| stats count by EventId
 ```
 #### MITRE ATT&CK
 

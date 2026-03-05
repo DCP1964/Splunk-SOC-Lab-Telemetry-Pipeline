@@ -1,1 +1,39 @@
+title: Suspicious Encoded PowerShell Execution
+id: 2b3c6e9f-encoded-powershell-detection
+status: experimental
+description: Detects PowerShell executions using encoded commands which are commonly used to hide malicious payloads.
+author: Deepak Pawar
+date: 2026-03-04
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
 
+logsource:
+  product: windows
+  service: sysmon
+
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - '-EncodedCommand'
+      - '-enc'
+
+  condition: selection
+
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+
+falsepositives:
+  - Administrative scripts
+  - Automation frameworks
+  - Software deployment tools
+
+level: high
+
+tags:
+  - attack.execution
+  - attack.t1059.001

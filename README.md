@@ -258,8 +258,11 @@ Windows Security Logs
 
 #### Detection Query
 ```
-index=main EventCode=4625 \| stats count by Account_Name
-Source_Network_Address \| sort -count
+index=main EventCode=4625
+| stats count by Account_Name Source_Network_Address host
+| where count > 3
+| table Account_Name Source_Network_Address host count
+| sort -count
 ```
 #### MITRE ATT&CK
 

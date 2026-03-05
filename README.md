@@ -494,17 +494,18 @@ Severity
 
 Medium
 
-## SOC Alert Example
+
+#### SOC Alert Example
 
 Example Alert: Windows Brute Force Attempt
 
 Detection Query
-
+```
 index=main EventCode=4625
 | stats count by Account_Name Source_Network_Address
 | where count > 3
 | sort -count
-
+```
 Alert Logic
 
 If more than 3 failed login attempts are detected from a single IP address,

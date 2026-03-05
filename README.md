@@ -609,6 +609,8 @@ Screenshot
 
 ![Fail2Ban Status](screenshots/fail2ban_status.png)
 
+![Fail2Ban Status](screenshots/fail2ban_status2.png)
+
 ------------------------------------------------------------------------
 
 # 19. Troubleshooting

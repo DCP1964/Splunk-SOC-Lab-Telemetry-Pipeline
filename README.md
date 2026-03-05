@@ -72,6 +72,15 @@ Used to simulate attacker behavior.
 
 ![SOC Architecture](architecture/soc_lab_architecture.png)
 
+The SOC lab architecture centralizes endpoint and authentication logs into Splunk for analysis.
+
+Windows endpoints generate telemetry through Sysmon and Windows Security logs.  
+Linux authentication events are collected from auth.log.
+
+Logs are forwarded to the Splunk Indexer using Splunk Universal Forwarder over TCP port 9997.
+
+SOC analysts use Splunk dashboards and detection queries to identify malicious activity and investigate incidents.
+
 ## Data Flow
 
 Kali Linux (Attacker) → Windows 10 Endpoint (Sysmon + Logs) → Splunk

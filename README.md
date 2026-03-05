@@ -15,7 +15,7 @@ ATT&CK framework**.
 Key achievements:
 
 -   Built a complete telemetry pipeline using Splunk Universal Forwarder
--   Indexed **38,000+ security events**
+-   Indexed **19,000+ security events**
 -   Simulated multiple attack techniques
 -   Developed detection rules using **Splunk SPL**
 -   Created SOC alerts and dashboards
@@ -160,7 +160,7 @@ Adapter 2 --- Host-Only network (internal attack lab)
 
 # 7. Log Collection Pipeline
 
-Windows Logs Forwarded:
+#### Windows Logs Forwarded:
 
 Security Logs\
 System Logs\
@@ -179,6 +179,23 @@ Screenshot
 
 ![Splunk Indexed Events](screenshots/splunk_index_events.png)
 
+#### Log Collection Pipeline Verification
+Sysmon Telemetry Ingestion
+
+To verify that endpoint telemetry was successfully forwarded to Splunk, a search was performed for Sysmon operational logs.
+
+#### Splunk Query
+```
+index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| head 20
+```
+#### Explanation
+
+This query retrieves recent Sysmon events indexed in Splunk, confirming that the Splunk Universal Forwarder on the Windows endpoint is successfully sending security telemetry to the Splunk server.
+
+#### Evidence
+
+![Sysmon Log Ingestion](screenshots/sysmon_log_ingestion.png)
 ------------------------------------------------------------------------
 
 # 8. Detection Strategy
@@ -200,32 +217,34 @@ Detection rules were validated using simulated attack activity.
 
 ## Attack 1 --- SSH Brute Force
 
-Attack Command
-
+#### Attack Command
+```
 for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done
-
-Log Source
+```
+#### Log Source
 
 Linux auth.log
 
-Detection Query
-
-index=main sourcetype="linux_secure" "Failed password" \| rex "Failed
-password for (invalid user )?(?`<user>`{=html}`\w`{=tex}+) from
-(?`<src_ip>`{=html}`\d+`{=tex}.`\d+`{=tex}.`\d+`{=tex}.`\d+`{=tex})" \|
-bin \_time span=1m \| stats count by user src_ip \| where count \> 5
-
-MITRE ATT&CK
+#### Detection Query
+```
+index=main sourcetype="linux_secure" "Failed password"
+| rex "Failed password for (invalid user )?(?<user>\w+) from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| stats count by user src_ip
+| where count > 5
+| table user src_ip count
+| sort -count
+```
+#### MITRE ATT&CK
 
 Tactic: Credential Access\
 Technique: Brute Force\
 ID: T1110
 
-Detection Result
+#### Detection Result
 
 This query identifies IP addresses performing multiple failed login attempts, indicating a potential brute-force attack.
 
-Screenshot
+#### Screenshot
 
 ![SSH Brute Force Detection](screenshots/ssh_bruteforce_detection.png)
 
@@ -233,68 +252,69 @@ Screenshot
 
 ## Attack 2 --- Windows Credential Attack
 
-Log Source
+#### Log Source
 
 Windows Security Logs
 
-Detection Query
-
+#### Detection Query
+```
 index=main EventCode=4625 \| stats count by Account_Name
 Source_Network_Address \| sort -count
-
-MITRE ATT&CK
+```
+#### MITRE ATT&CK
 
 Tactic: Credential Access\
 Technique: Brute Force\
 ID: T1110
 
-Screenshot
+#### Screenshot
 
-![Windows Failed Logins](screenshots/windows_failed_login.png)
+![Windows Failed Logins](screenshots\windows_logon_failure.png)
 
 ------------------------------------------------------------------------
 
 ## Attack 3 --- Port Scan Detection
 
-Attack Command
-
+#### Attack Command
+```
 nmap -sS `<target-ip>`{=html}
-
-Detection Query
-
+```
+#### Detection Query
+```
 index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
 -count
-
-MITRE ATT&CK
+```
+#### MITRE ATT&CK
 
 Tactic: Discovery\
 Technique: Network Service Discovery\
 ID: T1046
 
-Screenshot
+#### Screenshot
 
 ![Port Scan Detection](screenshots/port_scan_detection.png)
 
+![Port Scan Detection](screenshots/port_scan_detection-2.png)
 ------------------------------------------------------------------------
 
 ## Attack 4 --- Encoded PowerShell Execution
 
-Attack Command
-
+#### Attack Command
+```
 powershell -EncodedCommand
 UwB0AGEAcgB0AC0AUAByAG8AYwBlAHMAcwAgAGMAYQBsAGMALgBlAHgAZQA=
-
-Detection Query
-
+```
+#### Detection Query
+```
 index=main EventID=1 "*EncodedCommand*"
-
-MITRE ATT&CK
+```
+#### MITRE ATT&CK
 
 Tactic: Execution\
 Technique: PowerShell\
 ID: T1059.001
 
-Screenshot
+#### Screenshot
 
 ![Encoded PowerShell
 Detection](screenshots/encoded_powershell_detection.png)
@@ -303,22 +323,22 @@ Detection](screenshots/encoded_powershell_detection.png)
 
 ## Attack 5 --- Suspicious Process Execution
 
-Scenario
+#### Scenario
 
 PowerShell spawning calc.exe
 
-Detection Query
-
+#### Detection Query
+```
 index=main EventID=1 Image="\*powershell.exe" \| table \_time host Image
 CommandLine ParentImage
-
-MITRE ATT&CK
+```
+#### MITRE ATT&CK
 
 Tactic: Execution\
 Technique: Command Interpreter\
 ID: T1059
 
-Screenshot
+#### Screenshot
 
 ![Suspicious Process Execution](screenshots/suspicious_process.png)
 
@@ -523,7 +543,7 @@ Screenshot
 
 # 19. Troubleshooting
 
-Issue 1
+Issue
 
 Logs not appearing in Splunk.
 
@@ -537,26 +557,7 @@ Corrected configuration and restarted forwarder.
 
 Result
 
-
-
-Issue 2
-
-Logs not appearing in Splunk.
-
-Root Cause
-
-Permissions issue , Gave permissions in LOG On Tab of the service Splunkforwarder and restarted the service.
-
-Resolution
-
-Gave permissions in LOG On Tab of the service Splunkforwarder and restarted the service.
-
-Result
-Logs started appearing in the Splunk after searching a query
-
-38,000+ events successfully indexed.
-
-
+19,000+ events successfully indexed.
 
 ------------------------------------------------------------------------
 

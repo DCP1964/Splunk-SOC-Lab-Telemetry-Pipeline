@@ -633,7 +633,7 @@ Result
 
 # 20. SOC Metrics
 
-Events indexed: 19,000+\
+Events indexed: 38,000+\
 Data sources: 4\
 Detection rules created: 5\
 Attack simulations executed: 5\

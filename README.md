@@ -316,11 +316,11 @@ ID: T1059.001
 
 #### Screenshot
 
-![Encoded PowerShell
-Detection](screenshots/encoded_powershell_detection.png)
+![Encoded PowerShell Detection](screenshots/encoded_powershell_detection.png)
 
-![Encoded PowerShell
-Detection](screenshots/encoded_powershell_detection-2.png)
+![Encoded PowerShell Detection](screenshots/encoded_powershell_detection-2.png)
+
+![Encoded PowerShell Detection](screenshots/encoded_powershell_detection-3.png)
 ------------------------------------------------------------------------
 
 ## Attack 5 --- Suspicious Process Execution

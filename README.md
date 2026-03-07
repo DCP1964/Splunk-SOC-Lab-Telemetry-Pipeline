@@ -526,8 +526,8 @@ Medium
 
 **Examples:**
 
-**Brute force attack timeline**
-**Top targeted users**
+**Brute force attack timeline**\
+**Top targeted users**\
 **Top source IP addresses**
 
 **Splunk Dashboard**

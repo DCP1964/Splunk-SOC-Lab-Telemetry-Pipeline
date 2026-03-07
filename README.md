@@ -127,12 +127,12 @@ Outbound network connections
 
 # 5. Repository Structure
 
--  architecture\
--  detections\
--  sigma-rules\
--  threat-hunting\
--  screenshots\
--  reports\
+-  architecture
+-  detections
+-  sigma-rules
+-  threat-hunting
+-  screenshots
+-  reports
 -  README.md
 
 ------------------------------------------------------------------------

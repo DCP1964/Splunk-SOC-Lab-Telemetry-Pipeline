@@ -56,16 +56,16 @@ Focus areas:
 
 The SOC lab consists of four virtual machines.
 
-#### Windows 10 Endpoint\
+#### Windows 10 Endpoint
 Generates telemetry using Windows logs and Sysmon.
 
-#### Ubuntu Splunk Server\
+#### Ubuntu Splunk Server
 Acts as Splunk **Indexer + Search Head**.
 
-#### Linux System Logs\
+#### Linux System Logs
 Provides SSH authentication telemetry.
 
-#### Kali Linux\
+#### Kali Linux
 Used to simulate attacker behavior.
 
 ## Architecture Diagram
@@ -115,22 +115,22 @@ Outbound network connections
 
 # 4. Tools & Environment
 
-#### SIEM\
+#### SIEM
 Splunk Enterprise (Ubuntu)
 
-#### Endpoint Monitoring\
+#### Endpoint Monitoring
 Microsoft Sysmon
 
-#### Log Forwarding\
+#### Log Forwarding
 Splunk Universal Forwarder
 
-#### Virtualization\
+#### Virtualization
 Oracle VM VirtualBox
 
-#### Attack Simulation\
+#### Attack Simulation
 Kali Linux
 
-#### Automated Defense\
+#### Automated Defense
 Fail2Ban
 
 ------------------------------------------------------------------------
@@ -151,11 +151,11 @@ Fail2Ban
 
 ## Virtual Machines
 
-#### Windows 10\
+#### Windows 10
 RAM: 4GB\
 Disk: 60GB
 
-#### Ubuntu Splunk Server\
+#### Ubuntu Splunk Server
 RAM: 2GB\
 Disk: 30GB
 

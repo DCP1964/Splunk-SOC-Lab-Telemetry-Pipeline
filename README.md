@@ -328,20 +328,20 @@ index=main  "*EncodedCommand*"
 **Technique: PowerShell**\
 **ID: T1059.001**
 
-#### Screenshot
+**Screenshot**
 
 ![Encoded PowerShell
 Detection](screenshots/encoded_powershell_detection.png)
 
 ------------------------------------------------------------------------
 
-## Attack 5 --- Suspicious Process Execution
+### Attack 5 --- Suspicious Process Execution
 
-#### Scenario
+**Scenario**
 
 PowerShell spawning calc.exe
 
-#### Detection Query
+**Detection Query**
 ```
 index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | rex "<EventID>(?<EventID>\d+)</EventID>"
@@ -352,36 +352,36 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | table _time host ParentProcess Process
 | sort -_time
 ```
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 **Tactic: Execution**\
 **Technique: Command Interpreter**\
 **ID: T1059**
 
-#### Screenshot
+**Screenshot**
 
 ![Suspicious Process Execution](screenshots/suspicious_process_execution.png)
 
 ------------------------------------------------------------------------
 
-## Attack 6 --- Malware Execution (Safe Simulation)
+### Attack 6 --- Malware Execution (Safe Simulation)
 
-#### Scenario
+**Scenario**
 
 A safe malware simulation was performed using the EICAR test file. The EICAR string is a standardized antivirus test file used to safely simulate malware detection without causing harm to the system.
 
-#### Attack Command (Windows Endpoint)
+**Attack Command (Windows Endpoint)**
 ```
 echo X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE! > eicar.txt
 ```
-#### Telemetry Generated
+**Telemetry Generated**
 
 Sysmon logs captured the activity including:
 
 EventID 1 --- Process Creation  
 EventID 11 --- File Creation
 
-#### Detection Query
+**Detection Query**
 ```
 index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | rex "<EventID>(?<EventID>\d+)</EventID>"
@@ -392,17 +392,17 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | table _time host Process FileCreated
 | sort -_time
 ```
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 **Tactic: Execution**\  
 **Technique: User Execution**\  
 **ID: T1204**
 
-#### Detection Result
+**Detection Result**
 
 The query detects creation of files containing the EICAR test string, demonstrating how SOC analysts can identify suspicious file creation activity associated with potential malware execution.
 
-#### Screenshots
+**Screenshots**
 
 ![EICAR MALWARE DETECTION](screenshots/eicar_malware_detection.png)
 ------------------------------------------------------------------------
@@ -524,16 +524,16 @@ Medium
 
 **Examples:**
 
-**Brute force attack timeline**\
-**Top targeted users**\
+**Brute force attack timeline**
+**Top targeted users**
 **Top source IP addresses**
 
-#### Splunk Dashboard
+**Splunk Dashboard**
 
 SOC Security Monitoring Dashboard displaying
 The SOC Security Monitoring Dashboard provides visibility into key security events.
 
-#### Dashboard panels include:
+**Dashboard panels include:**
 
 • Failed Windows login attempts  
 • Process execution telemetry from Sysmon  
@@ -541,7 +541,7 @@ The SOC Security Monitoring Dashboard provides visibility into key security even
 
 These visualizations allow SOC analysts to quickly identify abnormal activity and investigate potential attacks.
 
-#### Screenshot
+**Screenshot**
 
 ![Splunk Dashboard](screenshots/splunk_dashboard.png)
 
@@ -593,7 +593,7 @@ cmd.exe\
 → powershell.exe\
 → calc.exe
 
-#### Splunk Query
+**Splunk Query**
 
 ```
 index=main
@@ -605,7 +605,7 @@ index=main
 | sort -_time
 ```
 
-#### Screenshot
+**Screenshot**
 
 ![Process Tree Analysis](screenshots/process_tree_analysis.png)
 
@@ -625,21 +625,21 @@ Windows Endpoint
 ```
 index=main EventID=1 "*EncodedCommand*"
 ```
-**Process Chain*
+**Process Chain**
 
 cmd.exe\
 → powershell.exe\
 → calc.exe
 
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 T1059.001
 
-#### Conclusion
+**Conclusion**
 
 Suspicious PowerShell command execution detected and investigated.
 
-#### Full report located in
+**Full report located in**
 
 reports/powershell_incident_report.md
 
@@ -649,16 +649,16 @@ reports/powershell_incident_report.md
 
 Fail2Ban monitors authentication logs and blocks brute‑force attackers.
 
-#### Configuration
-
+**Configuration**
+```
 /etc/fail2ban/jail.local
-
-#### Settings
-
+```
+**Settings**
+```
 maxretry = 3\
 bantime = 1h
-
-#### Screenshot
+```
+**Screenshot**
 
 ![Fail2Ban Status](screenshots/fail2ban_status.png)
 
@@ -668,19 +668,19 @@ bantime = 1h
 
 # 19. Troubleshooting
 
-#### Issue
+**Issue**
 
 Logs not appearing in Splunk.
 
-#### Root Cause
+**Root Cause**
 
 inputs.conf had a hidden .txt extension.
 
-#### Resolution
+**Resolution**
 
 Corrected configuration and restarted forwarder.
 
-#### Result
+**Result**
 
 38,000+ events successfully indexed.
 
@@ -688,31 +688,31 @@ Corrected configuration and restarted forwarder.
 
 # 20. SOC Metrics
 
--  Events indexed: 38,000+\
--  Data sources: 4\
--  Detection rules created: 5\
--  Attack simulations executed: 5\
+-  Events indexed: 38,000+
+-  Data sources: 4
+-  Detection rules created: 5
+-  Attack simulations executed: 5
 -  Alert response time: \<1 minute
 
 ------------------------------------------------------------------------
 
 # 21. Lessons Learned
 
--  Importance of Sysmon configuration\
--  Challenges with SIEM log ingestion\
--  Detection tuning to reduce false positives\
+-  Importance of Sysmon configuration
+-  Challenges with SIEM log ingestion
+-  Detection tuning to reduce false positives
 -  Correlation of logs across multiple systems
 
 ------------------------------------------------------------------------
 
 # 22. Skills Demonstrated
 
--  SIEM Engineering\
--  Log Pipeline Troubleshooting\
--  Detection Engineering\
--  Threat Simulation\
--  Security Log Analysis\
--  SOC Investigation Workflow\
+-  SIEM Engineering
+-  Log Pipeline Troubleshooting
+-  Detection Engineering
+-  Threat Simulation
+-  Security Log Analysis
+-  SOC Investigation Workflow
 -  Endpoint Telemetry Analysis
 
 ------------------------------------------------------------------------
@@ -721,10 +721,10 @@ Corrected configuration and restarted forwarder.
 
 Possible enhancements to this SOC lab include:
 
-• Integrating threat intelligence feeds\
-• Automating detection using SOAR workflows\
-• Adding ransomware detection scenarios\
-• Implementing Active Directory attack simulations\
+• Integrating threat intelligence feeds
+• Automating detection using SOAR workflows
+• Adding ransomware detection scenarios
+• Implementing Active Directory attack simulations
 • Expanding Sigma rule coverage
 
 These improvements would further enhance the detection and response capabilities of the lab environment.

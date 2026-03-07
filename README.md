@@ -111,17 +111,17 @@ EventID 11 --- File Creation
 
 # 4. Tools & Environment
 
-**SIEM:** Splunk Enterprise (Ubuntu)
+-  **SIEM:** Splunk Enterprise (Ubuntu)
 
-**Endpoint Monitoring:** Microsoft Sysmon
+-  **Endpoint Monitoring:** Microsoft Sysmon
 
-**Log Forwarding:** Splunk Universal Forwarder
+-  **Log Forwarding:** Splunk Universal Forwarder
 
-**Virtualization:** Oracle VM VirtualBox
+-  **Virtualization:** Oracle VM VirtualBox
 
-**Attack Simulation:** Kali Linux
+-  **Attack Simulation:** Kali Linux
 
-**Automated Defense:** Fail2Ban
+-  **Automated Defense:** Fail2Ban
 
 ------------------------------------------------------------------------
 
@@ -139,17 +139,21 @@ EventID 11 --- File Creation
 
 # 6. Environment Setup
 
-## Virtual Machines
+### Virtual Machines
 
-#### Windows 10
+**Windows 10**
 RAM: 4GB\
 Disk: 60GB
 
-#### Ubuntu Splunk Server
+**Ubuntu Splunk Server**
 RAM: 2GB\
 Disk: 30GB
 
-## Network Setup
+**Kali Linux**
+RAM: 2GB\
+Disk: 30GB
+
+### Network Setup
 
 Adapter 1 --- NAT (internet access)
 
@@ -159,7 +163,7 @@ Adapter 2 --- Host-Only network (internal attack lab)
 
 # 7. Log Collection Pipeline
 
-#### Windows Logs Forwarded:
+**Windows Logs Forwarded:**
 
 - **Security Logs**\
 - **System Logs**\
@@ -214,7 +218,7 @@ Detection rules were validated using simulated attack activity.
 
 # 9. Attack Simulations
 
-## Attack 1 --- SSH Brute Force
+### Attack 1 --- SSH Brute Force
 
 **Attack Command**
 ```
@@ -249,47 +253,47 @@ This query identifies IP addresses performing multiple failed login attempts, in
 
 ------------------------------------------------------------------------
 
-## Attack 2 --- Windows Credential Attack
+### Attack 2 --- Windows Credential Attack
 
-#### Log Source
+**Log Source**
 
 Windows Security Logs
 
-#### Detection Query
+**Detection Query**
 ```
 index=main EventCode=4625 \| stats count by Account_Name
 Source_Network_Address \| sort -count
 ```
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 **Tactic: Credential Access**\
 **Technique: Brute Force**\
 **ID: T1110**
 
-#### Screenshot
+**Screenshot**
 
 ![Windows Failed Logins](screenshots/windows_logon_failure.png)
 
 ------------------------------------------------------------------------
 
-## Attack 3 --- Port Scan Detection
+### Attack 3 --- Port Scan Detection
 
-#### Attack Command
+**Attack Command**
 ```
 nmap -sS `<target-ip>`{=html}
 ```
-#### Detection Query
+**Detection Query**
 ```
 index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
 -count
 ```
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 **Tactic: Discovery**\
 **Technique: Network Service Discovery**\
 **ID: T1046**
 
-#### Screenshot
+**Screenshot**
 
 ![Port Scan Detection 1](screenshots/port_scan_detection.png)
 
@@ -298,14 +302,14 @@ index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
 ![Port Scan Detection 3](screenshots/port_scan_detection-2.png)
 ------------------------------------------------------------------------
 
-## Attack 4 --- Encoded PowerShell Execution
+### Attack 4 --- Encoded PowerShell Execution
 
-#### Attack Command
+**Attack Command**
 ```
 powershell -EncodedCommand
 UwB0AGEAcgB0AC0AUAByAG8AYwBlAHMAcwAgAGMAYQBsAGMALgBlAHgAZQA=
 ```
-#### Detection Query
+**Detection Query**
 ```
 index=main  "*EncodedCommand*"
 | rex "<EventID>(?<EventID>\d+)</EventID>"
@@ -318,7 +322,7 @@ index=main  "*EncodedCommand*"
 | search EventID=1
 | stats count by EventId
 ```
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 **Tactic: Execution**\
 **Technique: PowerShell**\

@@ -208,8 +208,8 @@ to MITRE ATT&CK.
 
 ### Primary attacker tactics monitored:
 
--  **Credential Access**\
--  **Execution**\
+-  **Credential Access**
+-  **Execution**
 -  **Discovery**
 
 Detection rules were validated using simulated attack activity.

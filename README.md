@@ -115,22 +115,22 @@ Outbound network connections
 
 # 4. Tools & Environment
 
-SIEM\
+#### SIEM\
 Splunk Enterprise (Ubuntu)
 
-Endpoint Monitoring\
+#### Endpoint Monitoring\
 Microsoft Sysmon
 
-Log Forwarding\
+#### Log Forwarding\
 Splunk Universal Forwarder
 
-Virtualization\
+#### Virtualization\
 Oracle VM VirtualBox
 
-Attack Simulation\
+#### Attack Simulation\
 Kali Linux
 
-Automated Defense\
+#### Automated Defense\
 Fail2Ban
 
 ------------------------------------------------------------------------
@@ -171,20 +171,20 @@ Adapter 2 --- Host-Only network (internal attack lab)
 
 #### Windows Logs Forwarded:
 
-Security Logs\
-System Logs\
-Sysmon Operational Logs
+**Security Logs**\
+**System Logs**\
+**Sysmon Operational Logs**
 
-Linux Logs Forwarded:
+**Linux Logs Forwarded:**
 
 /var/log/auth.log\
 /var/log/syslog
 
-Splunk Index Used:
+**Splunk Index Used:**
 
 index=main
 
-Screenshot
+**Screenshot**
 
 ![Splunk Indexed Events](screenshots/splunk_index_events.png)
 

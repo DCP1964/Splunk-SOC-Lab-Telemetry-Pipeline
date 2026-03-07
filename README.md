@@ -396,8 +396,8 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 ```
 **MITRE ATT&CK**
 
-**Tactic: Execution**\  
-**Technique: User Execution**\  
+**Tactic: Execution**
+**Technique: User Execution**
 **ID: T1204**
 
 **Detection Result**
@@ -421,9 +421,9 @@ The query detects creation of files containing the EICAR test string, demonstrat
 
 ### Each detection includes:
 
--  **Detection logic**\
--  **SPL query**\
--  **MITRE mapping**\
+-  **Detection logic**
+-  **SPL query**
+-  **MITRE mapping**
 -  **False positive considerations**
 
 ### False Positive Considerations

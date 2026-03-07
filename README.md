@@ -56,13 +56,13 @@ Focus areas:
 
 The SOC lab consists of four virtual machines.
 
-**Windows 10 Endpoint:** Generates telemetry using Windows logs and Sysmon.
+-  **Windows 10 Endpoint:** Generates telemetry using Windows logs and Sysmon.
 
-**Ubuntu Splunk Server:** Acts as Splunk **Indexer + Search Head**.
+-  **Ubuntu Splunk Server:** Acts as Splunk **Indexer + Search Head**.
 
-**Linux System Logs:** Provides SSH authentication telemetry.
+-  **Linux System Logs:** Provides SSH authentication telemetry.
 
-**Kali Linux:** Used to simulate attacker behavior.
+-  **Kali Linux:** Used to simulate attacker behavior.
 
 ## Architecture Diagram
 

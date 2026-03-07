@@ -104,8 +104,8 @@ EventID 11 --- File Creation
 
 ## Network Activity
 
-Nmap scan activity\
-Outbound network connections
+-  Nmap scan activity\
+-  Outbound network connections
 
 ------------------------------------------------------------------------
 
@@ -171,28 +171,28 @@ Adapter 2 --- Host-Only network (internal attack lab)
 /var/log/syslog
 
 **Splunk Index Used:**
-
+```
 index=main
-
+```
 **Screenshot**
 
 ![Splunk Indexed Events](screenshots/splunk_index_events.png)
 
-#### Log Collection Pipeline Verification
+**Log Collection Pipeline Verification**
 Sysmon Telemetry Ingestion
 
 To verify that endpoint telemetry was successfully forwarded to Splunk, a search was performed for Sysmon operational logs.
 
-#### Splunk Query
+**Splunk Query**
 ```
 index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 | head 20
 ```
-#### Explanation
+**Explanation**
 
 This query retrieves recent Sysmon events indexed in Splunk, confirming that the Splunk Universal Forwarder on the Windows endpoint is successfully sending security telemetry to the Splunk server.
 
-#### Evidence
+**Evidence**
 
 ![Sysmon Log Ingestion](screenshots/sysmon_log_ingestion.png)
 ------------------------------------------------------------------------
@@ -216,15 +216,15 @@ Detection rules were validated using simulated attack activity.
 
 ## Attack 1 --- SSH Brute Force
 
-#### Attack Command
+**Attack Command**
 ```
 for i in {1..10}; do ssh attacker@localhost -p 22 "exit"; done
 ```
-#### Log Source
+**Log Source**
 
 Linux auth.log
 
-#### Detection Query
+**Detection Query**
 ```
 index=main sourcetype="linux_secure" "Failed password"
 | rex "Failed password for (invalid user )?(?<user>\w+) from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
@@ -233,17 +233,17 @@ index=main sourcetype="linux_secure" "Failed password"
 | table user src_ip count
 | sort -count
 ```
-#### MITRE ATT&CK
+**MITRE ATT&CK**
 
 **Tactic: Credential Access**\
 **Technique: Brute Force**\
 **ID: T1110**
 
-#### Detection Result
+**Detection Result**
 
 This query identifies IP addresses performing multiple failed login attempts, indicating a potential brute-force attack.
 
-#### Screenshot
+**Screenshot**
 
 ![SSH Brute Force Detection](screenshots/ssh_bruteforce_detection.png)
 

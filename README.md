@@ -43,12 +43,12 @@ Objectives:
 
 Focus areas:
 
-SIEM Engineering\
-Log Ingestion\
-Detection Engineering\
-Threat Simulation\
-Incident Investigation\
-Automated Response
+-  SIEM Engineering\
+-  Log Ingestion\
+-  Detection Engineering\
+-  Threat Simulation\
+-  Incident Investigation\
+-  Automated Response
 
 ------------------------------------------------------------------------
 
@@ -137,13 +137,13 @@ Fail2Ban
 
 # 5. Repository Structure
 
-architecture/\
-detections/\
-sigma-rules/\
-threat-hunting/\
-screenshots/\
-reports/\
-README.md
+-  architecture/\
+-  detections/\
+-  sigma-rules/\
+-  threat-hunting/\
+-  screenshots/\
+-  reports/\
+-  README.md
 
 ------------------------------------------------------------------------
 
@@ -245,9 +245,9 @@ index=main sourcetype="linux_secure" "Failed password"
 ```
 #### MITRE ATT&CK
 
-Tactic: Credential Access\
-Technique: Brute Force\
-ID: T1110
+**Tactic: Credential Access**\
+**Technique: Brute Force**\
+**ID: T1110**
 
 #### Detection Result
 
@@ -272,9 +272,9 @@ Source_Network_Address \| sort -count
 ```
 #### MITRE ATT&CK
 
-Tactic: Credential Access\
-Technique: Brute Force\
-ID: T1110
+**Tactic: Credential Access**\
+**Technique: Brute Force**\
+**ID: T1110**
 
 #### Screenshot
 
@@ -425,10 +425,10 @@ The query detects creation of files containing the EICAR test string, demonstrat
 
 ### Each detection includes:
 
-Detection logic\
-SPL query\
-MITRE mapping\
-False positive considerations
+-  **Detection logic**\
+-  **SPL query**\
+-  **MITRE mapping**\
+-  **False positive considerations**
 
 ### False Positive Considerations
 
@@ -451,7 +451,7 @@ Further tuning may be required in production environments.
 Sigma is a platform‑agnostic detection rule format used to share
 detection logic across SIEM platforms.
 
-Example Sigma rule:
+**Example Sigma rule:**
 
 ``` yaml
 title: Suspicious Encoded PowerShell Execution
@@ -471,7 +471,7 @@ condition: selection
 level: high
 ```
 
-Stored in repository:
+**Stored in repository:**
 
 sigma-rules/encoded_powershell.yml
 
@@ -479,44 +479,44 @@ sigma-rules/encoded_powershell.yml
 
 # 12. Alert Engineering
 
-Example Alert
+**Example Alert**
 
-Alert Name: SSH Brute Force Detection
+**Alert Name:** SSH Brute Force Detection
 
-Trigger Condition
+**Trigger Condition**
 
 More than 5 failed attempts in 1 minute.
 
-Schedule
+**Schedule****
 
 Every 1 minute
 
-Severity
+**Severity**
 
 Medium
 
 
 #### SOC Alert Example
 
-Example Alert: Windows Brute Force Attempt
+**Example Alert:** Windows Brute Force Attempt
 
-Detection Query
+**Detection Query**
 ```
 index=main EventCode=4625
 | stats count by Account_Name Source_Network_Address
 | where count > 3
 | sort -count
 ```
-Alert Logic
+**Alert Logic**
 
 If more than 3 failed login attempts are detected from a single IP address,
 an alert is triggered for SOC investigation.
 
-Severity
+**Severity**
 
 Medium
 
-SOC Response
+**SOC Response**
 
 1. Verify source IP address
 2. Check additional login attempts
@@ -526,20 +526,20 @@ SOC Response
 
 # 13. Visualization
 
-Splunk dashboards visualize attack patterns.
+### Splunk dashboards visualize attack patterns.
 
-Examples:
+**Examples:**
 
-Brute force attack timeline\
-Top targeted users\
-Top source IP addresses
+**Brute force attack timeline**\
+**Top targeted users**\
+**Top source IP addresses**
 
-Splunk Dashboard
+#### Splunk Dashboard
 
 SOC Security Monitoring Dashboard displaying
 The SOC Security Monitoring Dashboard provides visibility into key security events.
 
-Dashboard panels include:
+#### Dashboard panels include:
 
 • Failed Windows login attempts  
 • Process execution telemetry from Sysmon  
@@ -547,7 +547,7 @@ Dashboard panels include:
 
 These visualizations allow SOC analysts to quickly identify abnormal activity and investigate potential attacks.
 
-Screenshot
+#### Screenshot
 
 ![Splunk Dashboard](screenshots/splunk_dashboard.png)
 
@@ -555,15 +555,15 @@ Screenshot
 
 # 14. Threat Hunting Queries
 
-Example Hunting Query --- Most Frequent Processes
-
+**Example Hunting Query --- Most Frequent Processes**
+```
 index=main EventID=1 \| stats count by Image \| sort -count
-
-Example --- Suspicious PowerShell Activity
-
+```
+**Example --- Suspicious PowerShell Activity**
+```
 index=main Image="\*powershell.exe" \| stats count by CommandLine
-
-Threat hunting queries stored in:
+```
+**Threat hunting queries stored in:**
 
 threat-hunting/
 
@@ -586,7 +586,7 @@ These mappings demonstrate how attacker behaviors observed in the lab align with
 
 # 16. SOC Investigation Workflow
 
-Example workflow
+**Example workflow**
 
 Alert triggered → SOC analyst reviews logs → Process tree analysis →
 Timeline reconstruction → MITRE ATT&CK mapping → Incident documentation
@@ -599,7 +599,7 @@ cmd.exe\
 → powershell.exe\
 → calc.exe
 
-Splunk Query
+#### Splunk Query
 
 ```
 index=main
@@ -611,7 +611,7 @@ index=main
 | sort -_time
 ```
 
-Screenshot
+#### Screenshot
 
 ![Process Tree Analysis](screenshots/process_tree_analysis.png)
 
@@ -619,33 +619,33 @@ Screenshot
 
 # 17. SOC Incident Report
 
-Incident Name
+**Incident Name**
 
 Encoded PowerShell Execution
 
-Host
+**Host**
 
 Windows Endpoint
 
-Detection
-
+**Detection**
+```
 index=main EventID=1 "*EncodedCommand*"
-
-Process Chain
+```
+**Process Chain*
 
 cmd.exe\
 → powershell.exe\
 → calc.exe
 
-MITRE ATT&CK
+#### MITRE ATT&CK
 
 T1059.001
 
-Conclusion
+#### Conclusion
 
 Suspicious PowerShell command execution detected and investigated.
 
-Full report located in
+#### Full report located in
 
 reports/powershell_incident_report.md
 
@@ -655,16 +655,16 @@ reports/powershell_incident_report.md
 
 Fail2Ban monitors authentication logs and blocks brute‑force attackers.
 
-Configuration
+#### Configuration
 
 /etc/fail2ban/jail.local
 
-Settings
+#### Settings
 
 maxretry = 3\
 bantime = 1h
 
-Screenshot
+#### Screenshot
 
 ![Fail2Ban Status](screenshots/fail2ban_status.png)
 
@@ -674,52 +674,52 @@ Screenshot
 
 # 19. Troubleshooting
 
-Issue
+#### Issue
 
 Logs not appearing in Splunk.
 
-Root Cause
+#### Root Cause
 
 inputs.conf had a hidden .txt extension.
 
-Resolution
+#### Resolution
 
 Corrected configuration and restarted forwarder.
 
-Result
+#### Result
 
-19,000+ events successfully indexed.
+38,000+ events successfully indexed.
 
 ------------------------------------------------------------------------
 
 # 20. SOC Metrics
 
-Events indexed: 38,000+\
-Data sources: 4\
-Detection rules created: 5\
-Attack simulations executed: 5\
-Alert response time: \<1 minute
+-  Events indexed: 38,000+\
+-  Data sources: 4\
+-  Detection rules created: 5\
+-  Attack simulations executed: 5\
+-  Alert response time: \<1 minute
 
 ------------------------------------------------------------------------
 
 # 21. Lessons Learned
 
-Importance of Sysmon configuration\
-Challenges with SIEM log ingestion\
-Detection tuning to reduce false positives\
-Correlation of logs across multiple systems
+-  Importance of Sysmon configuration\
+-  Challenges with SIEM log ingestion\
+-  Detection tuning to reduce false positives\
+-  Correlation of logs across multiple systems
 
 ------------------------------------------------------------------------
 
 # 22. Skills Demonstrated
 
-SIEM Engineering\
-Log Pipeline Troubleshooting\
-Detection Engineering\
-Threat Simulation\
-Security Log Analysis\
-SOC Investigation Workflow\
-Endpoint Telemetry Analysis
+-  SIEM Engineering\
+-  Log Pipeline Troubleshooting\
+-  Detection Engineering\
+-  Threat Simulation\
+-  Security Log Analysis\
+-  SOC Investigation Workflow\
+-  Endpoint Telemetry Analysis
 
 ------------------------------------------------------------------------
 

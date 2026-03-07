@@ -396,8 +396,8 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 ```
 **MITRE ATT&CK**
 
-**Tactic: Execution**
-**Technique: User Execution**
+**Tactic: Execution**\
+**Technique: User Execution**\
 **ID: T1204**
 
 **Detection Result**

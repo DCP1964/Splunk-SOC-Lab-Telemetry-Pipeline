@@ -206,11 +206,11 @@ This query retrieves recent Sysmon events indexed in Splunk, confirming that the
 The detection strategy focuses on identifying attacker behaviors mapped
 to MITRE ATT&CK.
 
-Primary attacker tactics monitored:
+### Primary attacker tactics monitored:
 
-**Credential Access**\
-**Execution**\
-**Discovery**
+-  **Credential Access**\
+-  **Execution**\
+-  **Discovery**
 
 Detection rules were validated using simulated attack activity.
 

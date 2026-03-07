@@ -56,17 +56,13 @@ Focus areas:
 
 The SOC lab consists of four virtual machines.
 
-**Windows 10 Endpoint**
--  Generates telemetry using Windows logs and Sysmon.
+**Windows 10 Endpoint:** Generates telemetry using Windows logs and Sysmon.
 
-#### Ubuntu Splunk Server
-Acts as Splunk **Indexer + Search Head**.
+**Ubuntu Splunk Server:** Acts as Splunk **Indexer + Search Head**.
 
-#### Linux System Logs
-Provides SSH authentication telemetry.
+**Linux System Logs:** Provides SSH authentication telemetry.
 
-#### Kali Linux
-Used to simulate attacker behavior.
+**Kali Linux:** Used to simulate attacker behavior.
 
 ## Architecture Diagram
 
@@ -83,8 +79,8 @@ SOC analysts use Splunk dashboards and detection queries to identify malicious a
 
 ## Data Flow
 
-Kali Linux (Attacker) → Windows 10 Endpoint (Sysmon + Logs) → Splunk
-Universal Forwarder → TCP Port 9997 → Splunk Indexer → SOC Analyst
+-  Kali Linux (Attacker) → Windows 10 Endpoint (Sysmon + Logs) → Splunk
+-  Universal Forwarder → TCP Port 9997 → Splunk Indexer → SOC Analyst
 Investigation
 
 ------------------------------------------------------------------------
@@ -115,23 +111,17 @@ Outbound network connections
 
 # 4. Tools & Environment
 
-#### SIEM
-Splunk Enterprise (Ubuntu)
+**SIEM:** Splunk Enterprise (Ubuntu)
 
-#### Endpoint Monitoring
-Microsoft Sysmon
+**Endpoint Monitoring:** Microsoft Sysmon
 
-#### Log Forwarding
-Splunk Universal Forwarder
+**Log Forwarding:** Splunk Universal Forwarder
 
-#### Virtualization
-Oracle VM VirtualBox
+**Virtualization:** Oracle VM VirtualBox
 
-#### Attack Simulation
-Kali Linux
+**Attack Simulation:** Kali Linux
 
-#### Automated Defense
-Fail2Ban
+**Automated Defense:** Fail2Ban
 
 ------------------------------------------------------------------------
 

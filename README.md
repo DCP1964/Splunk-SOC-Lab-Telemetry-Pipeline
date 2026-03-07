@@ -56,7 +56,7 @@ Automated Response
 
 The SOC lab consists of four virtual machines.
 
-#### Windows 10 Endpoint\
+####  Windows 10 Endpoint\
 Generates telemetry using Windows logs and Sysmon.
 
 #### Ubuntu Splunk Server\

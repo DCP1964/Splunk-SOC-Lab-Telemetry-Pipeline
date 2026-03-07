@@ -261,8 +261,9 @@ Windows Security Logs
 
 **Detection Query**
 ```
-index=main EventCode=4625 \| stats count by Account_Name
-Source_Network_Address \| sort -count
+index=main EventCode=4625
+| stats count by Account_Name Source_Network_Address
+| sort - count
 ```
 **MITRE ATT&CK**
 

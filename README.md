@@ -43,11 +43,11 @@ Objectives:
 
 Focus areas:
 
--  SIEM Engineering\
--  Log Ingestion\
--  Detection Engineering\
--  Threat Simulation\
--  Incident Investigation\
+-  SIEM Engineering
+-  Log Ingestion
+-  Detection Engineering
+-  Threat Simulation
+-  Incident Investigation
 -  Automated Response
 
 ------------------------------------------------------------------------
@@ -56,8 +56,8 @@ Focus areas:
 
 The SOC lab consists of four virtual machines.
 
-#### Windows 10 Endpoint
-Generates telemetry using Windows logs and Sysmon.
+**Windows 10 Endpoint**
+-  Generates telemetry using Windows logs and Sysmon.
 
 #### Ubuntu Splunk Server
 Acts as Splunk **Indexer + Search Head**.

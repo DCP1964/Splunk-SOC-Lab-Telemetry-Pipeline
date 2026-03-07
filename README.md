@@ -165,8 +165,8 @@ Adapter 2 --- Host-Only network (internal attack lab)
 
 **Windows Logs Forwarded:**
 
-- **Security Logs**\
-- **System Logs**\
+- **Security Logs**
+- **System Logs**
 - **Sysmon Operational Logs**
 
 **Linux Logs Forwarded:**

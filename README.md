@@ -263,7 +263,7 @@ Windows Security Logs
 ```
 index=main EventCode=4625
 | stats count by Account_Name Source_Network_Address
-| sort - count
+| sort -count
 ```
 **MITRE ATT&CK**
 
@@ -285,8 +285,9 @@ nmap -sS `<target-ip>`{=html}
 ```
 **Detection Query**
 ```
-index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
--count
+index=main EventID=3
+| stats count by DestinationPort SourceIp
+| sort -count
 ```
 **MITRE ATT&CK**
 

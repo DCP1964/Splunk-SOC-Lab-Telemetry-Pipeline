@@ -56,16 +56,16 @@ Automated Response
 
 The SOC lab consists of four virtual machines.
 
-Windows 10 Endpoint\
+#### Windows 10 Endpoint\
 Generates telemetry using Windows logs and Sysmon.
 
-Ubuntu Splunk Server\
+#### Ubuntu Splunk Server\
 Acts as Splunk **Indexer + Search Head**.
 
-Linux System Logs\
+#### Linux System Logs\
 Provides SSH authentication telemetry.
 
-Kali Linux\
+#### Kali Linux\
 Used to simulate attacker behavior.
 
 ## Architecture Diagram

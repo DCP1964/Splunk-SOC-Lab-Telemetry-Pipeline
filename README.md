@@ -151,11 +151,11 @@ README.md
 
 ## Virtual Machines
 
-Windows 10\
+#### Windows 10\
 RAM: 4GB\
 Disk: 60GB
 
-Ubuntu Splunk Server\
+#### Ubuntu Splunk Server\
 RAM: 2GB\
 Disk: 30GB
 
@@ -171,9 +171,9 @@ Adapter 2 --- Host-Only network (internal attack lab)
 
 #### Windows Logs Forwarded:
 
-**Security Logs**\
-**System Logs**\
-**Sysmon Operational Logs**
+- **Security Logs**\
+- **System Logs**\
+- **Sysmon Operational Logs**
 
 **Linux Logs Forwarded:**
 
@@ -214,9 +214,9 @@ to MITRE ATT&CK.
 
 Primary attacker tactics monitored:
 
-Credential Access\
-Execution\
-Discovery
+**Credential Access**\
+**Execution**\
+**Discovery**
 
 Detection rules were validated using simulated attack activity.
 
@@ -295,9 +295,9 @@ index=main EventID=3 \| stats count by DestinationPort SourceIp \| sort
 ```
 #### MITRE ATT&CK
 
-Tactic: Discovery\
-Technique: Network Service Discovery\
-ID: T1046
+**Tactic: Discovery**\
+**Technique: Network Service Discovery**\
+**ID: T1046**
 
 #### Screenshot
 
@@ -322,6 +322,7 @@ index=main  "*EncodedCommand*"
 | search EventID=1
 
 or
+
 index=main  "*EncodedCommand*"
 | rex "<EventID>(?<EventID>\d+)</EventID>"
 | search EventID=1
@@ -329,9 +330,9 @@ index=main  "*EncodedCommand*"
 ```
 #### MITRE ATT&CK
 
-Tactic: Execution\
-Technique: PowerShell\
-ID: T1059.001
+**Tactic: Execution**\
+**Technique: PowerShell**\
+**ID: T1059.001**
 
 #### Screenshot
 
@@ -359,9 +360,9 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 ```
 #### MITRE ATT&CK
 
-Tactic: Execution\
-Technique: Command Interpreter\
-ID: T1059
+**Tactic: Execution**\
+**Technique: Command Interpreter**\
+**ID: T1059**
 
 #### Screenshot
 
@@ -399,9 +400,9 @@ index=main source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 ```
 #### MITRE ATT&CK
 
-Tactic: Execution  
-Technique: User Execution  
-ID: T1204
+**Tactic: Execution**\  
+**Technique: User Execution**\  
+**ID: T1204**
 
 #### Detection Result
 
@@ -416,11 +417,11 @@ The query detects creation of files containing the EICAR test string, demonstrat
 
 ### Detection rules created:
 
-SSH brute force detection\
-Windows credential attack detection\
-Encoded PowerShell detection\
-Port scan detection\
-Suspicious process execution detection
+**SSH brute force detection**\
+**Windows credential attack detection**\
+**Encoded PowerShell detection**\
+**Port scan detection**\
+**Suspicious process execution detection**
 
 ### Each detection includes:
 

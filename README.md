@@ -104,7 +104,7 @@ EventID 11 --- File Creation
 
 ## Network Activity
 
--  Nmap scan activity\
+-  Nmap scan activity
 -  Outbound network connections
 
 ------------------------------------------------------------------------

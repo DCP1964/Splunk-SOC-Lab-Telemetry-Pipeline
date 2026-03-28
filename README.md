@@ -218,6 +218,8 @@ Detection rules were validated using simulated attack activity.
 
 # 9. Attack Simulations
 
+---
+
 ### Attack 1 --- SSH Brute Force
 
 **Attack Command**

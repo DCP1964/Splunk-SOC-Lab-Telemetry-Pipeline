@@ -693,6 +693,9 @@ Corrected configuration and restarted forwarder.
 
 38,000+ events successfully indexed.
 
+### Screenshot
+![Sysmon not recognized error](screenshots/sysmon_error.png)
+
 
 ## Issue 2: Sysmon Command Not Recognized
 

@@ -577,7 +577,7 @@ The simulated attacks and detections in this lab were mapped to the MITRE ATT&CK
 | Port Scan | Network Service Discovery | T1046 |
 | Suspicious Process Execution | Command Interpreter | T1059 |
 
-These mappings demonstrate how attacker behaviors observed in the lab align with real-world adversary techniques documented in the MITRE ATT&CK framework.
+#### These mappings demonstrate how attacker behaviors observed in the lab align with real-world adversary techniques documented in the MITRE ATT&CK framework.
 ------------------------------------------------------------------------
 
 # 16. SOC Investigation Workflow

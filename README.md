@@ -579,6 +579,19 @@ The simulated attacks and detections in this lab were mapped to the MITRE ATT&CK
 ------------------------------------------------------------------------
 These mappings demonstrate how attacker behaviors observed in the lab align with real-world adversary techniques documented in the MITRE ATT&CK framework.
 
+---
+# Threat Detection Coverage Matrix
+
+The following table maps simulated attack techniques to their corresponding Splunk detection queries and MITRE ATT&CK techniques.
+
+| Attack | SPL Detection Query | MITRE Technique | Description |
+|-------|-------------------|----------------|-------------|
+| PowerShell Encoded Command | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| rex field=_raw "<Data Name='CommandLine'>(?<CommandLine>[^<]+)</Data>" \| search CommandLine="*EncodedCommand*" | T1059.001 | Detects obfuscated PowerShell commands |
+| Execution Policy Bypass | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| rex field=_raw "<Data Name='CommandLine'>(?<CommandLine>[^<]+)</Data>" \| search CommandLine="*ExecutionPolicy Bypass*" | T1059.001 | Detects PowerShell security bypass |
+| LSASS Enumeration | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "lsass" | T1003 | Detects credential access attempts |
+| Suspicious PowerShell Execution | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "powershell.exe" | T1059 | Detects PowerShell usage |
+| Process Discovery | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "Get-Process" | T1057 | Detects process enumeration |
+----------------------------------------------------------------------------
 # 16. SOC Investigation Workflow
 
 **Example workflow**

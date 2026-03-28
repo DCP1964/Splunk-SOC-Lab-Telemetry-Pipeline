@@ -70,6 +70,8 @@ The SOC lab consists of four virtual machines.
 
 The SOC lab architecture centralizes endpoint and authentication logs into Splunk for analysis.
 
+## Endpoint → Sysmon → Forwarder → Splunk → Detection
+
 Windows endpoints generate telemetry through Sysmon and Windows Security logs.  
 Linux authentication events are collected from auth.log.
 

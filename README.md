@@ -302,6 +302,7 @@ index=main EventID=3
 ![Port Scan Detection 2](screenshots/port_scan_detection01.png)
 
 ![Port Scan Detection 3](screenshots/port_scan_detection-2.png)
+
 ------------------------------------------------------------------------
 
 ### Attack 4 --- Encoded PowerShell Execution
@@ -407,6 +408,7 @@ The query detects creation of files containing the EICAR test string, demonstrat
 **Screenshots**
 
 ![EICAR MALWARE DETECTION](screenshots/eicar_malware_detection.png)
+
 ------------------------------------------------------------------------
 
 # 10. Detection Engineering
@@ -518,6 +520,7 @@ Medium
 2. Check additional login attempts
 3. Investigate user account activity
 4. Block IP if malicious
+   
 ------------------------------------------------------------------------
 
 # 13. Visualization
@@ -592,6 +595,7 @@ The following table maps simulated attack techniques to their corresponding Splu
 | Suspicious PowerShell Execution | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "powershell.exe" | T1059 | Detects PowerShell usage |
 | Process Discovery | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "Get-Process" | T1057 | Detects process enumeration |
 ----------------------------------------------------------------------------
+
 # 17. SOC Investigation Workflow
 
 **Example workflow**
@@ -709,6 +713,7 @@ Corrected configuration and restarted forwarder.
 ### Screenshot
 ![Sysmon not recognized error](screenshots/sysmon_error.png)
 
+---
 
 ## Issue 2: Sysmon Command Not Recognized
 

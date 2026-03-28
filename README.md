@@ -199,6 +199,7 @@ This query retrieves recent Sysmon events indexed in Splunk, confirming that the
 **Evidence**
 
 ![Sysmon Log Ingestion](screenshots/sysmon_log_ingestion.png)
+
 ------------------------------------------------------------------------
 
 # 8. Detection Strategy
@@ -218,7 +219,7 @@ Detection rules were validated using simulated attack activity.
 
 # 9. Attack Simulations
 
----
+
 
 ### Attack 1 --- SSH Brute Force
 

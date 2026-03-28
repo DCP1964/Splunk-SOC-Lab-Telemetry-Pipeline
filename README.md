@@ -580,7 +580,7 @@ The simulated attacks and detections in this lab were mapped to the MITRE ATT&CK
 These mappings demonstrate how attacker behaviors observed in the lab align with real-world adversary techniques documented in the MITRE ATT&CK framework.
 
 ---
-# Threat Detection Coverage Matrix
+# 16. Threat Detection Coverage Matrix
 
 The following table maps simulated attack techniques to their corresponding Splunk detection queries and MITRE ATT&CK techniques.
 
@@ -592,7 +592,7 @@ The following table maps simulated attack techniques to their corresponding Splu
 | Suspicious PowerShell Execution | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "powershell.exe" | T1059 | Detects PowerShell usage |
 | Process Discovery | index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" \| search "Get-Process" | T1057 | Detects process enumeration |
 ----------------------------------------------------------------------------
-# 16. SOC Investigation Workflow
+# 17. SOC Investigation Workflow
 
 **Example workflow**
 
@@ -625,7 +625,7 @@ index=main
 
 ------------------------------------------------------------------------
 
-# 17. SOC Incident Report
+# 18. SOC Incident Report
 
 **Incident Name**
 
@@ -659,7 +659,7 @@ reports/powershell_incident_report.md
 
 ------------------------------------------------------------------------
 
-# 18. Automated Defense --- Fail2Ban
+# 19. Automated Defense --- Fail2Ban
 
 Fail2Ban monitors authentication logs and blocks brute‑force attackers.
 
@@ -680,7 +680,7 @@ bantime = 1h
 
 ------------------------------------------------------------------------
 
-# 19. Troubleshooting
+# 20. Troubleshooting
 
 # Troubleshooting & Issues Encountered During Lab Setup
 
@@ -861,7 +861,7 @@ Events appeared in Splunk successfully.
 
 ------------------------------------------------------------------------
 
-# 20. SOC Metrics
+# 21. SOC Metrics
 
 -  Events indexed: 38,000+
 -  Data sources: 4
@@ -871,7 +871,7 @@ Events appeared in Splunk successfully.
 
 ------------------------------------------------------------------------
 
-# 21. Lessons Learned
+# 22. Lessons Learned
 
 -  Importance of Sysmon configuration
 -  Challenges with SIEM log ingestion
@@ -880,7 +880,7 @@ Events appeared in Splunk successfully.
 
 ------------------------------------------------------------------------
 
-# 22. Skills Demonstrated
+# 23. Skills Demonstrated
 
 -  SIEM Engineering
 -  Log Pipeline Troubleshooting

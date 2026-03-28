@@ -676,8 +676,25 @@ During the implementation of the SOC Detection Lab several issues were encounter
 Documenting these issues provides insight into the troubleshooting process and highlights real-world SIEM engineering challenges.
 
 ---
+## Issue 1: Logs not appearing in Splunk.
 
-## Issue 1: Sysmon Command Not Recognized
+### Problem 
+After passing the query in splunk , any query no logs were seen in the results window.
+
+### Root Cause
+
+inputs.conf had a hidden .txt extension.
+
+### Solution
+
+Corrected configuration and restarted forwarder.
+
+### Result
+
+38,000+ events successfully indexed.
+
+
+## Issue 2: Sysmon Command Not Recognized
 
 ### Problem
 
@@ -705,7 +722,7 @@ Sysmon configuration loaded successfully and telemetry collection began.
 
 ---
 
-## Issue 2: Splunk Query Returning No Results
+## Issue 3: Splunk Query Returning No Results
 
 ### Problem
 
@@ -746,7 +763,7 @@ ParentImage
 
 ---
 
-## Issue 3: Splunk Search for Encoded Commands
+## Issue 4: Splunk Search for Encoded Commands
 
 ### Problem
 
@@ -775,7 +792,7 @@ powershell.exe -EncodedCommand SQBFAFgA
 
 ---
 
-## Issue 4: XML Fields Using Single Quotes
+## Issue 5: XML Fields Using Single Quotes
 
 ### Problem
 
@@ -807,7 +824,7 @@ Fields were extracted correctly and detection queries began returning results.
 
 ---
 
-## Issue 5: PowerShell Attack Detection Delay
+## Issue 6: PowerShell Attack Detection Delay
 
 ### Problem
 
@@ -825,23 +842,6 @@ Wait approximately 10–20 seconds and refresh the search.
 
 Events appeared in Splunk successfully.
 
----
-
-**Issue**
-
-Logs not appearing in Splunk.
-
-**Root Cause**
-
-inputs.conf had a hidden .txt extension.
-
-**Resolution**
-
-Corrected configuration and restarted forwarder.
-
-**Result**
-
-38,000+ events successfully indexed.
 
 ------------------------------------------------------------------------
 

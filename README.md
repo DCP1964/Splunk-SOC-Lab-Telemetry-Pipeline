@@ -911,9 +911,9 @@ Possible enhancements to this SOC lab include:
 • Adding ransomware detection scenarios\
 • Implementing Active Directory attack simulations\
 • Expanding Sigma rule coverage\
-• Add additional detection rules\  
-• Integrate alert automation\  
-• Expand dashboard visualization\ 
+• Add additional detection rules\
+• Integrate alert automation\
+• Expand dashboard visualization\
 • Simulate additional attack techniques
 
 These improvements would further enhance the detection and response capabilities of the lab environment.

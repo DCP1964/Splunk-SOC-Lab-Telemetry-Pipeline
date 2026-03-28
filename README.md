@@ -669,6 +669,164 @@ bantime = 1h
 
 # 19. Troubleshooting
 
+# Troubleshooting & Issues Encountered During Lab Setup
+
+During the implementation of the SOC Detection Lab several issues were encountered while configuring Sysmon, forwarding logs to Splunk, and extracting telemetry fields from Sysmon XML logs.
+
+Documenting these issues provides insight into the troubleshooting process and highlights real-world SIEM engineering challenges.
+
+---
+
+## Issue 1: Sysmon Command Not Recognized
+
+### Problem
+
+When attempting to load the Sysmon configuration file using:
+
+Sysmon -c C:\Tools\sysmonconfig.xml
+
+PowerShell returned the following error:
+
+The term 'sysmon' is not recognized as the name of a cmdlet.
+
+### Root Cause
+
+The command was executed without specifying the full path to the Sysmon executable.
+
+### Solution
+
+Run the command using the full executable path:
+
+C:\Sysmon\Sysmon64.exe -c C:\Tools\sysmonconfig.xml
+
+### Result
+
+Sysmon configuration loaded successfully and telemetry collection began.
+
+---
+
+## Issue 2: Splunk Query Returning No Results
+
+### Problem
+
+Initial detection queries in Splunk returned:
+
+No results found
+
+Even though attack simulations had been executed.
+
+### Root Cause
+
+The Sysmon logs were being ingested into Splunk but the required fields (Image, CommandLine, ParentImage) were embedded within XML and not automatically parsed by Splunk.
+
+Example Sysmon event data:
+
+<Data Name='Image'>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Data>
+
+### Solution
+
+Use Splunk regex extraction to parse the fields.
+
+Detection query updated to:
+
+index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex field=_raw "<Data Name='Image'>(?<Image>[^<]+)</Data>"
+| rex field=_raw "<Data Name='CommandLine'>(?<CommandLine>[^<]+)</Data>"
+| rex field=_raw "<Data Name='ParentImage'>(?<ParentImage>[^<]+)</Data>"
+
+This extracted the required fields from the XML log structure.
+
+### Result
+
+The detection queries successfully displayed process execution data including:
+
+Image  
+CommandLine  
+ParentImage
+
+---
+
+## Issue 3: Splunk Search for Encoded Commands
+
+### Problem
+
+Detection queries searching for encoded PowerShell commands initially returned no results.
+
+Example query:
+
+search CommandLine="*EncodedCommand*"
+
+### Root Cause
+
+The CommandLine field was not extracted correctly from the Sysmon XML logs.
+
+### Solution
+
+Regex extraction was applied before running the search:
+
+| rex field=_raw "<Data Name='CommandLine'>(?<CommandLine>[^<]+)</Data>"
+| search CommandLine="*EncodedCommand*"
+
+### Result
+
+Splunk successfully detected the simulated attack:
+
+powershell.exe -EncodedCommand SQBFAFgA
+
+---
+
+## Issue 4: XML Fields Using Single Quotes
+
+### Problem
+
+Sysmon XML logs store field names using single quotes:
+
+<Data Name='Image'>
+
+Instead of double quotes.
+
+This caused the initial regex extraction queries to fail.
+
+Example incorrect regex:
+
+<Data Name="Image">
+
+### Solution
+
+The regex extraction was modified to match single quotes:
+
+<Data Name='Image'>
+
+Correct query:
+
+| rex field=_raw "<Data Name='Image'>(?<Image>[^<]+)</Data>"
+
+### Result
+
+Fields were extracted correctly and detection queries began returning results.
+
+---
+
+## Issue 5: PowerShell Attack Detection Delay
+
+### Problem
+
+After executing attack simulations, Splunk searches did not immediately show the events.
+
+### Root Cause
+
+Log ingestion delay from the Splunk Universal Forwarder.
+
+### Solution
+
+Wait approximately 10–20 seconds and refresh the search.
+
+### Result
+
+Events appeared in Splunk successfully.
+
+---
+
 **Issue**
 
 Logs not appearing in Splunk.

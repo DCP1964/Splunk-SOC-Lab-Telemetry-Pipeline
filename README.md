@@ -7,7 +7,7 @@ Operations Center (SOC) lab** used to simulate real-world cyber attacks,
 ingest telemetry, build detection rules, investigate incidents, and
 implement automated defense using **Splunk SIEM**.
 
-The lab integrates Windows endpoint telemetry, Linux authentication
+The project integrates Windows endpoint telemetry, Linux authentication
 logs, and simulated attacker activity to demonstrate detection
 engineering and SOC investigation workflows aligned with the **MITRE
 ATT&CK framework**.
